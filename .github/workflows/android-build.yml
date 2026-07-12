@@ -1,0 +1,99 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Initialize React Native Project Wrapper (Android 14 / API 34+)
+        run: |
+          # Inicializar proyecto con React Native 0.73.6 (targets Android 14 nativamente y es más estable con svg)
+          npx react-native@0.73.6 init BuildApp --directory build-app --skip-install --version 0.73.6
+          cp -r build-app/android .
+          cp build-app/metro.config.js .
+          cp build-app/app.json .
+          
+          # Forzar configuración Gradle para usar compileSdkVersion y targetSdkVersion 34 (Android 14)
+          node -e "
+            const fs = require('fs');
+            
+            // 1. Modificar gradle de nivel raíz para asegurar target 34
+            if (fs.existsSync('android/build.gradle')) {
+              let rootGradle = fs.readFileSync('android/build.gradle', 'utf8');
+              rootGradle = rootGradle.replace(/compileSdkVersion\s*=\s*\d+/g, 'compileSdkVersion = 34');
+              rootGradle = rootGradle.replace(/targetSdkVersion\s*=\s*\d+/g, 'targetSdkVersion = 34');
+              fs.writeFileSync('android/build.gradle', rootGradle);
+            }
+            
+            // 2. Modificar gradle de app
+            if (fs.existsSync('android/app/build.gradle')) {
+              let appGradle = fs.readFileSync('android/app/build.gradle', 'utf8');
+              appGradle = appGradle.replace(/minifyEnabled\s+false/g, 'minifyEnabled true');
+              if (!appGradle.includes('shrinkResources')) {
+                appGradle = appGradle.replace(/minifyEnabled\s+true/g, 'minifyEnabled true\n            shrinkResources true');
+              }
+              appGradle = appGradle.replace(/enableProguardInReleaseBuilds\s*=\s*false/g, 'enableProguardInReleaseBuilds = true');
+              
+              fs.writeFileSync('android/app/build.gradle', appGradle);
+            }
+            
+            // 3. Fusionar dependencias de package.json
+            const pkg = JSON.parse(fs.readFileSync('build-app/package.json', 'utf8'));
+            pkg.dependencies['react-native-svg'] = '^14.1.0';
+            pkg.dependencies['lucide-react-native'] = '^0.350.0';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+          rm -rf build-app
+          rm -f App.tsx
+          
+          # 4. Asegurar que exista index.js en la raíz del proyecto para bundling
+          if [ ! -f index.js ]; then
+            echo "import { AppRegistry } from 'react-native';" > index.js
+            echo "import App from './App';" >> index.js
+            echo "import { name as appName } from './app.json';" >> index.js
+            echo "AppRegistry.registerComponent(appName, () => App);" >> index.js
+            echo "Creado archivo index.js para bundling de React Native"
+          fi
+
+      - name: Install Project Dependencies
+        run: |
+          npm install
+
+      - name: Build Release APK (with Proguard/R8 Shrinking)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Create GitHub Release and Upload APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-build-${{ github.run_number }}
+          name: Build Release v1.0.0-build-${{ github.run_number }}
+          draft: false
+          prerelease: false
+          files: android/app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
