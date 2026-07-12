@@ -9,14 +9,14 @@ if (fs.existsSync('android/build.gradle')) {
   fs.writeFileSync('android/build.gradle', rootGradle);
 }
 
-// 2. Modificar gradle de app (Code Shrinking + Debug Signing for Release builds)
+// 2. Modificar gradle de app (Debug Signing for Release builds, Proguard deshabilitado para máxima velocidad y compatibilidad)
 if (fs.existsSync('android/app/build.gradle')) {
   let appGradle = fs.readFileSync('android/app/build.gradle', 'utf8');
-  appGradle = appGradle.replace(/minifyEnabled\s+false/g, 'minifyEnabled true');
-  if (!appGradle.includes('shrinkResources')) {
-    appGradle = appGradle.replace(/minifyEnabled\s+true/g, 'minifyEnabled true\n            shrinkResources true');
-  }
-  appGradle = appGradle.replace(/enableProguardInReleaseBuilds\s*=\s*false/g, 'enableProguardInReleaseBuilds = true');
+  
+  // Asegurarse de que proguard y minificación estén desactivados en release para evitar errores R8 y compilar más rápido
+  appGradle = appGradle.replace(/minifyEnabled\s+true/g, 'minifyEnabled false');
+  appGradle = appGradle.replace(/shrinkResources\s+true/g, 'shrinkResources false');
+  appGradle = appGradle.replace(/enableProguardInReleaseBuilds\s*=\s*true/g, 'enableProguardInReleaseBuilds = false');
   
   // Forzar firma debug en compilaciones de tipo Release para que sean instalables sin firmar
   if (appGradle.includes('signingConfig signingConfigs.debug') && !appGradle.includes('release {\n            signingConfig signingConfigs.debug')) {
