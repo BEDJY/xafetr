@@ -63,18 +63,30 @@ jobs:
             const pkg = JSON.parse(fs.readFileSync('build-app/package.json', 'utf8'));
             pkg.dependencies['react-native-svg'] = '^14.1.0';
             pkg.dependencies['lucide-react-native'] = '^0.350.0';
+            pkg.dependencies['@gluestack-ui/themed'] = '^1.1.18';
+            pkg.dependencies['@gluestack-ui/config'] = '^1.1.18';
+            pkg.dependencies['@gluestack-style/react'] = '^1.0.57';
+            pkg.dependencies['react-native-safe-area-context'] = '^4.9.0';
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
           "
           rm -rf build-app
           rm -f App.tsx
           
-          # 4. Asegurar que exista index.js en la raíz del proyecto para bundling
+          # 4. Asegurar que exista index.js con GluestackUIProvider en la raíz para bundling
           if [ ! -f index.js ]; then
-            echo "import { AppRegistry } from 'react-native';" > index.js
+            echo "import React from 'react';" > index.js
+            echo "import { AppRegistry } from 'react-native';" >> index.js
+            echo "import { GluestackUIProvider } from '@gluestack-ui/themed';" >> index.js
+            echo "import { config } from '@gluestack-ui/config';" >> index.js
             echo "import App from './App';" >> index.js
             echo "import { name as appName } from './app.json';" >> index.js
-            echo "AppRegistry.registerComponent(appName, () => App);" >> index.js
-            echo "Creado archivo index.js para bundling de React Native"
+            echo "const RootApp = () => (" >> index.js
+            echo "  <GluestackUIProvider config={config}>" >> index.js
+            echo "    <App />" >> index.js
+            echo "  </GluestackUIProvider>" >> index.js
+            echo ");" >> index.js
+            echo "AppRegistry.registerComponent(appName, () => RootApp);" >> index.js
+            echo "Creado archivo index.js con GluestackUIProvider"
           fi
 
       - name: Install Project Dependencies
