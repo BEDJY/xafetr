@@ -35,108 +35,109 @@ jobs:
           cp build-app/metro.config.js .
           cp build-app/app.json .
           
-          # Forzar configuración Gradle para usar compileSdkVersion y targetSdkVersion 34 (Android 14)
-          node -e "
-            const fs = require('fs');
-            
-            // 1. Modificar gradle de nivel raíz para asegurar target 34
-            if (fs.existsSync('android/build.gradle')) {
-              let rootGradle = fs.readFileSync('android/build.gradle', 'utf8');
-              rootGradle = rootGradle.replace(/compileSdkVersion\s*=\s*\d+/g, 'compileSdkVersion = 34');
-              rootGradle = rootGradle.replace(/targetSdkVersion\s*=\s*\d+/g, 'targetSdkVersion = 34');
-              fs.writeFileSync('android/build.gradle', rootGradle);
+          # Escribir script de combinación de dependencias y configuración Gradle
+          cat << 'EOF' > merge-deps.js
+          const fs = require('fs');
+          const path = require('path');
+          
+          // 1. Modificar gradle de nivel raíz para asegurar target 34
+          if (fs.existsSync('android/build.gradle')) {
+            let rootGradle = fs.readFileSync('android/build.gradle', 'utf8');
+            rootGradle = rootGradle.replace(/compileSdkVersions*=s*d+/g, 'compileSdkVersion = 34');
+            rootGradle = rootGradle.replace(/targetSdkVersions*=s*d+/g, 'targetSdkVersion = 34');
+            fs.writeFileSync('android/build.gradle', rootGradle);
+          }
+          
+          // 2. Modificar gradle de app
+          if (fs.existsSync('android/app/build.gradle')) {
+            let appGradle = fs.readFileSync('android/app/build.gradle', 'utf8');
+            appGradle = appGradle.replace(/minifyEnableds+false/g, 'minifyEnabled true');
+            if (!appGradle.includes('shrinkResources')) {
+              appGradle = appGradle.replace(/minifyEnableds+true/g, 'minifyEnabled true
+            shrinkResources true');
             }
+            appGradle = appGradle.replace(/enableProguardInReleaseBuildss*=s*false/g, 'enableProguardInReleaseBuilds = true');
             
-            // 2. Modificar gradle de app
-            if (fs.existsSync('android/app/build.gradle')) {
-              let appGradle = fs.readFileSync('android/app/build.gradle', 'utf8');
-              appGradle = appGradle.replace(/minifyEnabled\s+false/g, 'minifyEnabled true');
-              if (!appGradle.includes('shrinkResources')) {
-                appGradle = appGradle.replace(/minifyEnabled\s+true/g, 'minifyEnabled true\n            shrinkResources true');
+            fs.writeFileSync('android/app/build.gradle', appGradle);
+          }
+          
+          // 3. Fusionar dependencias de package.json
+          const pkg = JSON.parse(fs.readFileSync('build-app/package.json', 'utf8'));
+          pkg.dependencies['react-native-svg'] = '^14.1.0';
+          pkg.dependencies['lucide-react-native'] = '^0.350.0';
+          pkg.dependencies['@gluestack-ui/themed'] = '^1.1.18';
+          pkg.dependencies['@gluestack-ui/config'] = '^1.1.18';
+          pkg.dependencies['@gluestack-style/react'] = '^1.0.57';
+          pkg.dependencies['react-native-safe-area-context'] = '^4.9.0';
+          pkg.dependencies['@expo/vector-icons'] = '^15.1.1';
+          pkg.dependencies['expo-font'] = '^12.0.0';
+          pkg.dependencies['zustand'] = '^5.0.14';
+          
+          const detectedDeps = new Set();
+          const scanDir = (dir) => {
+            const items = fs.readdirSync(dir);
+            for (const item of items) {
+              if (item === 'node_modules' || item === 'build-app' || item === 'android' || item.startsWith('.')) continue;
+              const fullPath = path.join(dir, item);
+              const stat = fs.statSync(fullPath);
+              if (stat.isDirectory()) {
+                scanDir(fullPath);
+              } else if (stat.isFile() && /.(jsx?|tsx?)$/.test(item)) {
+                const content = fs.readFileSync(fullPath, 'utf8');
+                const importRegex = /(?:imports+(?:[ws{},*]+)s+froms+['"]([^'"]+)['"])|(?:imports+['"]([^'"]+)['"])|(?:requires*(s*['"]([^'"]+)['"]s*))/g;
+                let match;
+                while ((match = importRegex.exec(content)) !== null) {
+                  const importPath = match[1] || match[2] || match[3];
+                  if (importPath) {
+                    let pkgName = importPath;
+                    if (importPath.startsWith('@')) {
+                      const parts = importPath.split('/');
+                      if (parts.length >= 2) pkgName = parts[0] + '/' + parts[1];
+                    } else {
+                      pkgName = importPath.split('/')[0];
+                    }
+                    if (!pkgName.startsWith('.') && !pkgName.startsWith('/') && 
+                        pkgName !== 'react-native' && pkgName !== 'react' && pkgName !== 'react-dom') {
+                      detectedDeps.add(pkgName);
+                    }
+                  }
+                }
               }
-              appGradle = appGradle.replace(/enableProguardInReleaseBuilds\s*=\s*false/g, 'enableProguardInReleaseBuilds = true');
-              
-              fs.writeFileSync('android/app/build.gradle', appGradle);
             }
-            
-             // 3. Fusionar dependencias de package.json
-             const pkg = JSON.parse(fs.readFileSync('build-app/package.json', 'utf8'));
-             pkg.dependencies['react-native-svg'] = '^14.1.0';
-             pkg.dependencies['lucide-react-native'] = '^0.350.0';
-             pkg.dependencies['@gluestack-ui/themed'] = '^1.1.18';
-             pkg.dependencies['@gluestack-ui/config'] = '^1.1.18';
-             pkg.dependencies['@gluestack-style/react'] = '^1.0.57';
-             pkg.dependencies['react-native-safe-area-context'] = '^4.9.0';
-             pkg.dependencies['@expo/vector-icons'] = '^15.1.1';
-             pkg.dependencies['expo-font'] = '^12.0.0';
-             pkg.dependencies['zustand'] = '^5.0.14';
-             
-             // Escaneo dinámico recursivo de paquetes importados en los archivos fuente (.js, .jsx, .ts, .tsx)
-             const fsScan = require('fs');
-             const pathScan = require('path');
-             const detectedDeps = new Set();
-             
-             const scanDir = (dir) => {
-               const items = fsScan.readdirSync(dir);
-               for (const item of items) {
-                 if (item === 'node_modules' || item === 'build-app' || item === 'android' || item.startsWith('.')) continue;
-                 const fullPath = pathScan.join(dir, item);
-                 const stat = fsScan.statSync(fullPath);
-                 if (stat.isDirectory()) {
-                   scanDir(fullPath);
-                 } else if (stat.isFile() && /\.(jsx?|tsx?)$/.test(item)) {
-                   const content = fsScan.readFileSync(fullPath, 'utf8');
-                   const importRegex = /(?:import\s+(?:[\w\s{},*]+)\s+from\s+['"]([^'"]+)['"])|(?:import\s+['"]([^'"]+)['"])|(?:require\s*\(\s*['"]([^'"]+)['"]\s*\))/g;
-                   let match;
-                   while ((match = importRegex.exec(content)) !== null) {
-                     const importPath = match[1] || match[2] || match[3];
-                     if (importPath) {
-                       let pkgName = importPath;
-                       if (importPath.startsWith('@')) {
-                         const parts = importPath.split('/');
-                         if (parts.length >= 2) pkgName = parts[0] + '/' + parts[1];
-                       } else {
-                         pkgName = importPath.split('/')[0];
-                       }
-                       if (!pkgName.startsWith('.') && !pkgName.startsWith('/') && 
-                           pkgName !== 'react-native' && pkgName !== 'react' && pkgName !== 'react-dom') {
-                         detectedDeps.add(pkgName);
-                       }
-                     }
-                   }
-                 }
-               }
-             };
-             
-             try {
-               scanDir('.');
-             } catch(err) {
-               console.error('Error durante escaneo:', err);
-             }
-             
-             // Versiones estables pre-configuradas para evitar resolver 'latest' inestables
-             const defaultVersions = {
-               'expo-status-bar': '^1.11.1',
-               '@react-navigation/native': '^6.1.18',
-               '@react-navigation/stack': '^6.4.1',
-               '@react-navigation/bottom-tabs': '^6.6.1',
-               'react-native-screens': '^3.35.0',
-               'react-native-gesture-handler': '^2.21.2',
-               'react-native-reanimated': '^3.6.2',
-               'react-native-paper': '^5.12.3',
-               'canvas-confetti': '^1.9.3'
-             };
-             
-             for (const dep of detectedDeps) {
-               if (!pkg.dependencies[dep]) {
-                 const version = defaultVersions[dep] || 'latest';
-                 pkg.dependencies[dep] = version;
-                 console.log('[Autodetect] Inyectando dependencia:', dep, '@', version);
-               }
-             }
-             
-             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-           "
+          };
+          
+          try {
+            scanDir('.');
+          } catch(err) {
+            console.error('Error durante escaneo:', err);
+          }
+          
+          // Versiones estables pre-configuradas para evitar resolver 'latest' inestables
+          const defaultVersions = {
+            'expo-status-bar': '^1.11.1',
+            '@react-navigation/native': '^6.1.18',
+            '@react-navigation/stack': '^6.4.1',
+            '@react-navigation/bottom-tabs': '^6.6.1',
+            'react-native-screens': '^3.35.0',
+            'react-native-gesture-handler': '^2.21.2',
+            'react-native-reanimated': '^3.6.2',
+            'react-native-paper': '^5.12.3',
+            'canvas-confetti': '^1.9.3'
+          };
+          
+          for (const dep of detectedDeps) {
+            if (!pkg.dependencies[dep]) {
+              const version = defaultVersions[dep] || 'latest';
+              pkg.dependencies[dep] = version;
+              console.log('[Autodetect] Inyectando dependencia:', dep, '@', version);
+            }
+          }
+          
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          EOF
+          
+          node merge-deps.js
+          rm merge-deps.js
           rm -rf build-app
           rm -f App.tsx
           
