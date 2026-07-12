@@ -38,12 +38,15 @@ pkg.dependencies['@expo/vector-icons'] = '^15.1.1';
 pkg.dependencies['expo-font'] = '^12.0.0';
 pkg.dependencies['zustand'] = '^5.0.14';
 pkg.dependencies['@babel/plugin-transform-class-static-block'] = '^7.24.7';
+pkg.dependencies['react'] = '18.2.0';
+pkg.dependencies['react-dom'] = '18.2.0';
 
 const detectedDeps = new Set();
 const scanDir = (dir) => {
   const items = fs.readdirSync(dir);
   for (const item of items) {
     if (item === 'node_modules' || item === 'build-app' || item === 'android' || item.startsWith('.')) continue;
+    if (dir === '.' && (item === 'metro.config.js' || item === 'babel.config.js' || item === 'merge-deps.js' || item === 'eslint.config.js' || item === 'package.json' || item === 'package-lock.json')) continue;
     const fullPath = path.join(dir, item);
     const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {
