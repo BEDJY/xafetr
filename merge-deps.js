@@ -34,8 +34,6 @@ pkg.dependencies['@gluestack-ui/themed'] = '^1.1.18';
 pkg.dependencies['@gluestack-ui/config'] = '^1.1.18';
 pkg.dependencies['@gluestack-style/react'] = '^1.0.57';
 pkg.dependencies['react-native-safe-area-context'] = '^4.9.0';
-pkg.dependencies['@expo/vector-icons'] = '^15.1.1';
-pkg.dependencies['expo-font'] = '^12.0.0';
 pkg.dependencies['zustand'] = '^5.0.14';
 pkg.dependencies['@babel/plugin-transform-class-static-block'] = '^7.24.7';
 pkg.dependencies['react'] = '18.2.0';
@@ -83,7 +81,6 @@ try {
 
 // Mappings de versiones conocidas para dependencias comunes
 const defaultVersions = {
-  'expo-status-bar': '^1.11.1',
   '@react-navigation/native': '^6.1.18',
   '@react-navigation/stack': '^6.4.1',
   '@react-navigation/bottom-tabs': '^6.6.1',
