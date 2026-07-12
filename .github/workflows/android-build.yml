@@ -91,7 +91,7 @@ jobs:
 
       - name: Install Project Dependencies
         run: |
-          npm install
+          npm install --legacy-peer-deps
 
       - name: Build Release APK (with Proguard/R8 Shrinking)
         run: |
