@@ -1,0 +1,43 @@
+<div class="announcement-ticker-bar" style="background: {{ section.settings.bg_gradient }}; color: {{ section.settings.text_color }};">
+  <div id="announcementTicker" class="ticker-content">
+    <span class="ticker-badge">{{ section.settings.badge_text }}</span>
+    <span>{{ section.settings.announcement_text }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Anuncios",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Etiqueta del anuncio",
+      "default": "ENVÍOS FREES"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texto del Anuncio",
+      "default": "🚚 Envíos gratis por compras superiores a $2,500 DOP en Distrito Nacional"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_gradient",
+      "label": "Fondo Gradiente",
+      "default": "linear-gradient(90deg, #FF5000 0%, #E53935 50%, #123B5D 100%)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color de Texto",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Anuncios"
+    }
+  ]
+}
+{% endschema %}
