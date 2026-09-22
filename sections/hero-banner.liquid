@@ -1,0 +1,111 @@
+<section class="hero-card">
+  <button class="hero-arrow prev" onclick="moveHeroSlide(-1)" aria-label="Anterior">❮</button>
+  <button class="hero-arrow next" onclick="moveHeroSlide(1)" aria-label="Siguiente">❯</button>
+
+  <div id="heroSliderTrack" class="hero-slider-track">
+    {% for block in section.blocks %}
+      <div class="hero-slide-item" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.title | escape }}">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=1200&auto=format&fit=crop" alt="Hero Slide">
+        {% endif %}
+        
+        <div class="hero-slide-overlay">
+          {% if block.settings.eyebrow != blank %}
+            <span class="hero-eyebrow-text">{{ block.settings.eyebrow }}</span>
+          {% endif %}
+          
+          {% if block.settings.title != blank %}
+            <h1 class="hero-title-text">{{ block.settings.title }}</h1>
+          {% endif %}
+          
+          {% if block.settings.subtitle != blank %}
+            <p class="hero-sub-text">{{ block.settings.subtitle }}</p>
+          {% endif %}
+          
+          {% if block.settings.button_text != blank %}
+            <a href="{{ block.settings.button_link | default: routes.all_products_collection_url }}" class="hero-cta-btn" style="text-decoration: none; display: inline-block;">
+              {{ block.settings.button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <!-- DIAPOSITIVA POR DEFECTO -->
+      <div class="hero-slide-item">
+        <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=1200&auto=format&fit=crop" alt="Nutrición Premium">
+        <div class="hero-slide-overlay">
+          <span class="hero-eyebrow-text">SALUD & ALIMENTACIÓN</span>
+          <h1 class="hero-title-text">Nutrición Premium para<br>tus Mascotas</h1>
+          <p class="hero-sub-text">Hasta 25% de descuento en marcas de prescripción e higiene.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="hero-cta-btn" style="text-decoration: none; display: inline-block;">Ver Productos</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="hero-dots-row">
+    {% for block in section.blocks %}
+      <span class="hero-dot {% if forloop.first %}active{% endif %}"></span>
+    {% else %}
+      <span class="hero-dot active"></span>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Hero Carrusel",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Diapositiva",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen del Banner"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Texto Superior (Copete)",
+          "default": "SALUD & ALIMENTACIÓN"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título Principal",
+          "default": "Nutrición Premium para tus Mascotas"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtítulo",
+          "default": "Hasta 25% de descuento en productos seleccionados."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto del Botón",
+          "default": "Ver Productos"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Enlace del Botón"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Hero Carrusel",
+      "blocks": [
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
