@@ -1,0 +1,12 @@
+{
+  "general": {
+    "search": "Buscar",
+    "cart": "Carrito",
+    "checkout": "Procesar Pago"
+  },
+  "products": {
+    "add_to_cart": "Añadir al Carrito",
+    "sold_out": "Agotado",
+    "unavailable": "No disponible"
+  }
+}
