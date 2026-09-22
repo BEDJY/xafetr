@@ -1,0 +1,14 @@
+{
+  "current": {
+    "color_primary": "#123B5D",
+    "color_accent": "#FF5000",
+    "color_cyan": "#007BA7"
+  },
+  "presets": {
+    "Default": {
+      "color_primary": "#123B5D",
+      "color_accent": "#FF5000",
+      "color_cyan": "#007BA7"
+    }
+  }
+}
