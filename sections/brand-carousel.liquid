@@ -1,0 +1,56 @@
+<section class="brand-carousel-section">
+  <div class="brand-section-title">{{ section.settings.title }}</div>
+  <div class="brand-logos-row">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="brand-chip" style="text-decoration: none;">
+        {{ block.settings.brand_name }}
+      </a>
+    {% else %}
+      <span class="brand-chip">Purina Pro Plan</span>
+      <span class="brand-chip">Royal Canin</span>
+      <span class="brand-chip">Hill's Science Diet</span>
+      <span class="brand-chip">NexGard Spectra</span>
+      <span class="brand-chip">Taste of the Wild</span>
+      <span class="brand-chip">Bravecto</span>
+      <span class="brand-chip">Tetra Aquarium</span>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrusel de Marcas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de la Sección",
+      "default": "Marcas Líderes Recomendadas por Veterinarios"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Nombre de la Marca",
+          "default": "Royal Canin"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace de Filtrado"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrusel de Marcas"
+    }
+  ]
+}
+{% endschema %}
