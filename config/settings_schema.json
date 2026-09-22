@@ -1,0 +1,33 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Cobaii Petvet Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Antigravity Studio",
+    "theme_documentation_url": "https://help.shopify.com",
+    "theme_support_url": "https://support.shopify.com"
+  },
+  {
+    "name": "Colores del Tema",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Color Primario",
+        "default": "#123B5D"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Color de Acento (Naranja)",
+        "default": "#FF5000"
+      },
+      {
+        "type": "color",
+        "id": "color_cyan",
+        "label": "Color secundario (Cian)",
+        "default": "#007BA7"
+      }
+    ]
+  }
+]
