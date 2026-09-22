@@ -1,0 +1,51 @@
+<section class="cobaii-plus-card">
+  <div>
+    <span class="plus-tag">{{ section.settings.badge_text }}</span>
+    <h3 style="font-size: 1.05rem; font-weight: 800; margin-top: 6px;">{{ section.settings.title }}</h3>
+    <p style="font-size: 0.82rem; color: #CBD5E1;">{{ section.settings.subtitle }}</p>
+  </div>
+  <button class="plus-btn" onclick="alert('{{ section.settings.alert_text | escape }}')">{{ section.settings.button_text }}</button>
+</section>
+
+{% schema %}
+{
+  "name": "Sección Membresía Plus",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Etiqueta",
+      "default": "COBAII PLUS ⭐"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Membresía Plus: Envíos Gratis + 5x PetCash"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Descripción",
+      "default": "Acumula puntos canjeables por dinero en cada pedido de alimento o medicamento."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del Botón",
+      "default": "Unirme Gratis"
+    },
+    {
+      "type": "text",
+      "id": "alert_text",
+      "label": "Mensaje de Bienvenida",
+      "default": "🌟 ¡Gracias por unirte a Cobaii Plus!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sección Membresía Plus"
+    }
+  ]
+}
+{% endschema %}
