@@ -1,0 +1,48 @@
+<div class="nutri-quiz-banner" onclick="openNutriQuizModal()">
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div style="font-size:2.4rem; background:rgba(255,255,255,0.2); width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;">🥣</div>
+    <div>
+      <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#FEF3C7;">{{ section.settings.eyebrow }}</div>
+      <h3 style="font-size:1.1rem; font-weight:900;">{{ section.settings.title }}</h3>
+      <p style="font-size:0.82rem; opacity:0.9;">{{ section.settings.subtitle }}</p>
+    </div>
+  </div>
+  <button class="hero-cta-btn" style="background:white; color:var(--primary); margin:0;">{{ section.settings.btn_text }}</button>
+</div>
+
+{% schema %}
+{
+  "name": "Asesor Nutricional Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Subtítulo Superior",
+      "default": "ASESOR DE ALIMENTACIÓN GRATUITO"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título Principal",
+      "default": "Calculadora Nutricional para tu Mascota"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Descripción",
+      "default": "Descubre el alimento ideal y la ración diaria exacta en gramos según su raza y edad."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texto del Botón",
+      "default": "Calcular Ración"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Asesor Nutricional Banner"
+    }
+  ]
+}
+{% endschema %}
