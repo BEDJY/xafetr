@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxePaws Royale | Tienda de Mascotas VIP & AERIS Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/theme.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Contenedor de Burbujas Flotantes Animadas en el Fondo -->
+    <div class="bubbles-bg-container">
+        <!-- Esferas de Luz y Color Ambientales -->
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+
+        <!-- Burbujas de Cristal Nítidas Flotantes -->
+        <div class="rising-bubble bubble-r1"></div>
+        <div class="rising-bubble bubble-r2"></div>
+        <div class="rising-bubble bubble-r3"></div>
+        <div class="rising-bubble bubble-r4"></div>
+        <div class="rising-bubble bubble-r5"></div>
+        <div class="rising-bubble bubble-r6"></div>
+        <div class="rising-bubble bubble-r7"></div>
+        <div class="rising-bubble bubble-r8"></div>
+        <div class="rising-bubble bubble-r9"></div>
+        <div class="rising-bubble bubble-r10"></div>
+    </div>
+
+    <!-- HEADER: CABECERA CÁPSULA FLOTANTE DE LUXE (APPBAR) -->
+    <header class="header-floating-capsule" id="main-header">
+
+        <!-- Barra Principal Cápsula Flotante (Glass Floating Navbar) -->
+        <div class="glass-navbar-capsule">
+            
+            <!-- SECCIÓN IZQUIERDA: Brand Logo + Pet Selector -->
+            <div class="nav-brand-section">
+                <a href="index.html" class="logo-badge">
+                    <img src="assets/logo/logo2_transparent.png" alt="LuxePaws Royale Logo" class="brand-logo-img">
+                </a>
+                <div class="logo-title-group">
+                    <span class="brand-name">LuxePaws</span>
+                    <span class="brand-sub">ROYALE PETS</span>
+                </div>
+
+                <!-- Pet Selector Switcher -->
+                <div class="pet-selector-dropdown">
+                    <select id="header-pet-switcher" class="pet-select-pill">
+                        <option value="all">👑 Todos los Reyes</option>
+                        <option value="perro">🐶 Perros VIP</option>
+                        <option value="gato">🐱 Gatos Imperiales</option>
+                        <option value="ave">🦜 Aves de Cuna</option>
+                        <option value="conejo">🐰 Conejos Aristócratas</option>
+                        <option value="caballo">🐴 Caballos Reales</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DERECHA: Puntos VIP, Moneda, Buscador, Favoritos, Carrito, Tema -->
+            <div class="nav-actions-section">
+                <!-- Puntos Royale VIP Badge Pill -->
+                <button class="nav-action-pill points-pill" id="btn-open-vip-rewards" title="Club de Puntos VIP Royale">
+                    <span>👑</span> <span id="header-user-points">240</span> <span class="action-label">Pts</span>
+                </button>
+
+                <!-- Selector Multimoneda Global -->
+                <div class="currency-selector-dropdown">
+                    <select id="currency-select" class="currency-select-pill" title="Seleccionar Moneda">
+                        <option value="USD">🇺🇸 USD ($)</option>
+                        <option value="EUR">🇪🇺 EUR (€)</option>
+                        <option value="MXN">🇲🇽 MXN ($)</option>
+                        <option value="COP">🇨🇴 COP ($)</option>
+                    </select>
+                </div>
+
+                <!-- Quiz Interactivo Kit Ideal Button -->
+                <button class="nav-action-pill" id="btn-open-pet-quiz" title="Asistente de Recomendación">
+                    <span>🎯</span> <span class="action-label">Quiz Kit</span>
+                </button>
+
+                <!-- Botón de Búsqueda Flotante -->
+                <button class="nav-action-pill" id="btn-toggle-search" title="Buscar Productos">
+                    <span>🔍</span> <span class="action-label">Buscar</span>
+                </button>
+
+                <!-- Favoritos -->
+                <button class="nav-action-pill" id="wishlist-header-btn" title="Ver Favoritos">
+                    <span>❤️</span> <span class="action-label">Wishlist</span>
+                </button>
+
+                <!-- Carrito con Badge Flotante -->
+                <button class="nav-action-pill cart-pill" id="cart-btn" title="Ver Carrito">
+                    <span>🛒</span>
+                    <span class="cart-label-count" id="cart-badge">0</span>
+                </button>
+
+                <!-- Toggle Tema (Claro / Oscuro) -->
+                <button class="nav-action-pill theme-pill" id="theme-toggle-btn" title="Cambiar Tema">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- PANEL DE BÚSQUEDA FLOTANTE DESLIZABLE (SEARCH OVERLAY) -->
+        <div class="header-search-overlay" id="search-overlay">
+            <div class="search-overlay-container">
+                <div class="search-overlay-input-group">
+                    <span class="search-icon-lg">🔍</span>
+                    <input type="text" id="search-input" placeholder="Escribe para buscar collares, tronos, esmoquin, spa..." autocomplete="off">
+                    <button class="btn-close-search" id="btn-close-search">✕</button>
+                </div>
+
+                <!-- Trending Hashtags -->
+                <div class="search-trending-row">
+                    <span class="trend-title">🔥 Tendencias Top:</span>
+                    <span class="trend-tag" data-query="Collar">#CollaresSwarovski</span>
+                    <span class="trend-tag" data-query="Trono">#TronosVelour</span>
+                    <span class="trend-tag" data-query="Esmoquin">#CoutureGala</span>
+                    <span class="trend-tag" data-query="GPS">#SmartGPS</span>
+                </div>
+
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- SECCIÓN HERO: CARROUSEL AERIS 3D DE MASCOTAS CON TRANSICIÓN AUTOMÁTICA -->
+    <section class="experience" id="aeris-experience">
+
+        <div class="background">
+            <div class="bg-image"></div>
+            <div class="bg-overlay"></div>
+        </div>
+
+        <main class="carousel">
+
+            <div class="cards" id="aeris-cards-container">
+
+                <!-- Slide 1: Dudi Pets Spa -->
+                <article
+                    class="card active"
+                    data-title="Dudi Pets Spa VIP"
+                    data-location="Spa Royale"
+                    data-number="01"
+                    data-image="images/banner1.png"
+                >
+                    <div class="card-media-frame">
+                        <img src="images/banner1.png" alt="Dudi Pets Spa">
+                        <div class="card-glow"></div>
+                    </div>
+                </article>
+
+                <!-- Slide 2: Cobaii Compra y Ahorra -->
+                <article
+                    class="card"
+                    data-title="Cobaii Puntos & Beneficios"
+                    data-location="Club Royale"
+                    data-number="02"
+                    data-image="images/banner2.jpg"
+                >
+                    <div class="card-media-frame">
+                        <img src="images/banner2.jpg" alt="Cobaii Compra y Ahorra">
+                        <div class="card-glow"></div>
+                    </div>
+                </article>
+
+            </div>
+        </main>
+
+    </section>
+
+    <!-- SECCIÓN: VISTOS RECIENTEMENTE (ANTES DE LAS OFERTAS) -->
+    <section class="recently-viewed-section" id="recently-viewed-section" style="display: none; padding: 25px 0 10px;">
+        <div class="container">
+            <h3 class="section-title" style="font-size: 1.3rem; margin-bottom: 20px;">👀 Vistos Recientemente</h3>
+            <div class="recently-viewed-grid" id="recently-viewed-grid"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE OFERTAS RELÁMPAGO VIP (DESPUÉS DE VISTOS RECIENTEMENTE & ANTES DE CATEGORÍAS) -->
+    <section class="flash-deals-hero-section" id="flash-deals-hero-section">
+        <div class="container">
+            <div class="flash-deals-header">
+                <div class="flash-deals-title-group">
+                    <span class="flash-sale-badge">⚡ OFERTAS RELÁMPAGO VIP</span>
+                    <h2 class="flash-deals-heading">Descuentos de Ultra Lujo (Hasta 70% OFF)</h2>
+                </div>
+                <div class="flash-timer-box">
+                    <span class="timer-label" style="font-size: 0.75rem; font-weight: 700; margin-right: 6px; color: var(--gold-light);">Termina en:</span>
+                    <span id="hero-flash-hours">04</span>:<span id="hero-flash-minutes">18</span>:<span id="hero-flash-seconds">42</span>
+                </div>
+            </div>
+
+            <div class="flash-deals-carousel-wrapper">
+                <button class="flash-nav-btn prev" id="flash-nav-prev" title="Anterior">‹</button>
+                <div class="flash-deals-scroll" id="flash-deals-container">
+                    <!-- Se llena dinámicamente con JS -->
+                </div>
+                <button class="flash-nav-btn next" id="flash-nav-next" title="Siguiente">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CATEGORÍAS CIRCULARES ELEGANTES EN ESTILO 3D -->
+    <section class="categories-circles-section">
+        <div class="container">
+            <div class="categories-circles-scroll" id="categories-circles-container">
+                <div class="category-circle-item active" data-category="all">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/category/todos.png" alt="Todo">
+                        <span class="circle-badge">✨</span>
+                    </div>
+                    <span class="circle-label">Todo</span>
+                </div>
+                <div class="category-circle-item" data-category="perro">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/category/perros.png" alt="Perros">
+                        <span class="circle-badge">🐶</span>
+                    </div>
+                    <span class="circle-label">Perros</span>
+                </div>
+                <div class="category-circle-item" data-category="gato">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/category/gatos.png" alt="Gatos">
+                        <span class="circle-badge">🐱</span>
+                    </div>
+                    <span class="circle-label">Gatos</span>
+                </div>
+                <div class="category-circle-item" data-category="ave">
+                    <div class="circle-avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=300&q=80" alt="Aves">
+                        <span class="circle-badge">🦜</span>
+                    </div>
+                    <span class="circle-label">Aves</span>
+                </div>
+                <div class="category-circle-item" data-category="conejo">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/category/roedores.png" alt="Roedores">
+                        <span class="circle-badge">🐹</span>
+                    </div>
+                    <span class="circle-label">Roedores</span>
+                </div>
+                <div class="category-circle-item" data-category="acuario">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/category/acuario.png" alt="Acuario">
+                        <span class="circle-badge">🐠</span>
+                    </div>
+                    <span class="circle-label">Acuario</span>
+                </div>
+                <div class="category-circle-item" data-category="medicina">
+                    <div class="circle-avatar-wrapper">
+                        <img src="assets/icons/petvet_icon_completo_1024.png" alt="Medicinas">
+                        <span class="circle-badge">💊</span>
+                    </div>
+                    <span class="circle-label">Medicinas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANNER CON RELOJ CONTADOR REGRESIVO DE OFERTA RELÁMPAGO -->
+    <div class="container">
+        <div class="flash-sale-banner">
+            <div class="flash-sale-content">
+                <span class="flash-sale-badge">⚡ OPORTUNIDAD RELÁMPAGO</span>
+                <span class="flash-sale-text">Obtén <strong>20% OFF EXTRA</strong> con el cupón <em>LUXE2026</em></span>
+                <div class="flash-timer-box">
+                    <span id="timer-hours">04</span>:<span id="timer-minutes">18</span>:<span id="timer-seconds">42</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIENDA: MAIN CATALOG CONTENT -->
+    <main class="container" style="padding-top: 25px;">
+
+        <!-- GRILLA DE PRODUCTOS ESTILO PINTEREST MASONRY (2 COLUMNAS EN MOBILE) -->
+        <section id="catalog-section" style="margin-bottom: 60px;">
+            <div class="catalog-controls-row">
+                <h2 class="section-title">Colección VIP</h2>
+                <div class="sort-dropdown-wrapper">
+                    <span class="sort-label">Ordenar por:</span>
+                    <select id="sort-select" class="sort-select-pill">
+                        <option value="featured">👑 Más Populares</option>
+                        <option value="price-low">💰 Precio: Menor a Mayor</option>
+                        <option value="price-high">💎 Precio: Mayor a Menor</option>
+                        <option value="rating">⭐ Mejor Calificados</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="pinterest-masonry-grid" id="products-grid">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Drawer de Carrito (Panel Lateral Slide-Over Glass Shopify Style) -->
+    <div class="cart-drawer-overlay" id="cart-drawer-overlay">
+        <div class="cart-drawer">
+            <div class="drawer-header">
+                <h3 class="drawer-title">🛒 Tu Carrito VIP</h3>
+                <button class="btn-close-drawer" id="btn-close-drawer">✕</button>
+            </div>
+
+            <div class="drawer-body" id="cart-items-container">
+                <!-- Items del Carrito -->
+            </div>
+
+            <div class="empty-cart-view" id="empty-cart-view" style="display: none;">
+                <div class="empty-cart-icon">🛍️</div>
+                <p>Tu carrito de lujo está vacío.</p>
+                <small style="color: var(--text-muted);">Explora nuestro feed y añade artículos reales.</small>
+            </div>
+
+            <!-- Bloque de Venta Cruzada / Upsells en Carrito -->
+            <div class="cart-upsells-wrapper">
+                <h4 class="cart-upsells-title">✨ Completa tu Pedido VIP</h4>
+                <div class="cart-upsells-row" id="cart-upsells-container"></div>
+            </div>
+
+            <div class="drawer-footer">
+                <!-- Termómetro de Envío Gratis & Regalo VIP -->
+                <div class="free-shipping-tracker">
+                    <div class="tracker-text" id="free-shipping-text">¡Agrega <strong>$50.00</strong> más para Envío Express GRATIS! 🚚</div>
+                    <div class="tracker-bar">
+                        <div class="tracker-progress" id="free-shipping-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="coupon-box">
+                    <input type="text" id="coupon-input" class="coupon-input" placeholder="Cupón (Ej: LUXE2026)">
+                    <button class="btn-apply-coupon" id="btn-apply-coupon">Aplicar</button>
+                </div>
+
+                <!-- Opciones de Regalo & Notas -->
+                <div class="cart-options-box">
+                    <label class="cart-gift-wrap-label">
+                        <input type="checkbox" id="cart-gift-wrap-check"> 🎁 ¿Es para regalo? (Incluye caja de oro rosa +$4.99)
+                    </label>
+                    <textarea id="cart-order-note" placeholder="Nota especial para la entrega / mensaje para tu mascota..."></textarea>
+                </div>
+
+                <div class="summary-line"><span>Subtotal:</span><span id="cart-subtotal">$0.00</span></div>
+                <div class="summary-line"><span>Descuento Cupón:</span><span id="cart-discount" style="color: var(--cyan-neon);">$0.00</span></div>
+                <div class="summary-line"><span>Envío Express VIP:</span><span id="cart-shipping-cost" style="color: var(--gold-light);">GRATIS</span></div>
+                <div class="summary-line total"><span>Total Estimado:</span><span id="cart-total">$0.00</span></div>
+
+                <!-- Botones Express Checkout Shopify Style -->
+                <div class="express-checkout-buttons">
+                    <button class="btn-checkout" id="btn-checkout">💳 FINALIZAR COMPRA VIP</button>
+                    <div class="express-pay-row">
+                        <button class="btn-express-pay btn-apple-pay" id="btn-apple-pay">🍏 Pay</button>
+                        <button class="btn-express-pay btn-google-pay" id="btn-google-pay">G Pay</button>
+                        <button class="btn-express-pay btn-paypal" id="btn-paypal">PayPal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Vista Rápida PDP Avanzado (Con Grabado & Contador de Despacho) -->
+    <div class="modal-overlay" id="quick-view-modal">
+        <div class="modal-content">
+            <button class="btn-close-modal" id="btn-close-modal">✕</button>
+            <div class="modal-grid">
+                <div class="modal-gallery-wrapper">
+                    <div class="modal-img-main">
+                        <img id="modal-img" src="" alt="Producto">
+                        <!-- Vista Previa de Grabado Personalizado sobre la Foto -->
+                        <div class="engraving-live-preview" id="engraving-live-preview"></div>
+                    </div>
+                    <!-- Miniaturas de la Galería -->
+                    <div class="modal-gallery-thumbs" id="modal-gallery-thumbs"></div>
+                </div>
+                
+                <div class="modal-info">
+                    <div class="modal-top-badges-row">
+                        <span class="points-earned-pill" id="modal-earned-points-badge">👑 +890 Pts</span>
+                    </div>
+
+                    <h2 class="modal-title" id="modal-title">Nombre del Producto</h2>
+                    <p class="modal-desc" id="modal-desc">Descripción del producto...</p>
+
+                    <!-- Urgencia de Despacho Ticker -->
+                    <div class="dispatch-urgency-box">
+                        🚀 Pide en las próximas <strong id="dispatch-timer">02h 14m 32s</strong> y despachamos <strong>HOY MISMO</strong>
+                    </div>
+
+                    <div class="modal-price-box">
+                        <span class="modal-price-current" id="modal-price-current">$0.00</span>
+                        <span class="price-original" id="modal-price-original">$0.00</span>
+                    </div>
+
+                    <!-- Selector de Colores Swatches -->
+                    <div class="variant-section" id="variant-color-section">
+                        <label class="variant-label">Color: <strong id="selected-color-name">Selecciona</strong></label>
+                        <div class="color-swatches-row" id="modal-color-swatches"></div>
+                    </div>
+
+                    <!-- Selector de Tallas Capsules -->
+                    <div class="variant-section" id="variant-size-section">
+                        <div class="variant-header-row">
+                            <label class="variant-label">Talla: <strong id="selected-size-name">Selecciona</strong></label>
+                            <button class="btn-size-guide-trigger" id="btn-open-size-guide">📐 Guía de Tallas</button>
+                        </div>
+                        <div class="size-capsules-row" id="modal-size-capsules"></div>
+                    </div>
+
+                    <!-- Seccion Personalizacion Grabado / Bordado en Vivo -->
+                    <div class="engraving-section-box">
+                        <label class="engraving-checkbox-label">
+                            <input type="checkbox" id="engraving-check"> ✨ Grabado / Bordado de Nombre Personalizado (GRATIS)
+                        </label>
+                        <div class="engraving-inputs-row" id="engraving-inputs-container" style="display: none;">
+                            <input type="text" id="engraving-name-input" placeholder="Nombre de la Mascota (Ej: LUNA)" maxlength="16">
+                            <input type="text" id="engraving-phone-input" placeholder="Teléfono de contacto (Opcional)" maxlength="15">
+                        </div>
+                    </div>
+
+                    <!-- Acordiones de Especificaciones Técnicas -->
+                    <div class="modal-accordions-wrapper">
+                        <details class="modal-accordion-item">
+                            <summary>📦 Envío & Devoluciones Gratis</summary>
+                            <p id="modal-accordion-shipping">Envíos asegurados en 24-48h con política de devolución garantizada en 30 días.</p>
+                        </details>
+                        <details class="modal-accordion-item">
+                            <summary>🌿 Materiales & Cuidados</summary>
+                            <p id="modal-accordion-material">Textiles e insumos hipoalergénicos certificados.</p>
+                        </details>
+                        <details class="modal-accordion-item">
+                            <summary>🔒 Garantía de Satisfacción VIP</summary>
+                            <p>Reemplazo directo sin costos adicionales si el producto presenta fallas de fábrica.</p>
+                        </details>
+                    </div>
+
+                    <div style="margin-top: auto; padding-top: 15px;">
+                        <button class="btn-checkout" id="modal-add-cart-btn" style="margin-top: 0;">
+                            🛒 Añadir al Carrito VIP
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Guía de Tallas (Size Guide Modal) -->
+    <div class="modal-overlay" id="size-guide-modal">
+        <div class="modal-content size-guide-content">
+            <button class="btn-close-modal" id="btn-close-size-guide">✕</button>
+            <h3 class="size-guide-title">📐 Guía de Tallas Imperial LuxePaws</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">Mide a tu mascota alrededor del cuello y el tórax para garantizar un ajuste perfecto.</p>
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>Talla</th>
+                        <th>Cuello (cm)</th>
+                        <th>Pecho (cm)</th>
+                        <th>Peso Recomendado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>XS</strong></td><td>18 - 24 cm</td><td>28 - 36 cm</td><td>1 - 3.5 kg (Chihuahua, Yorkshire)</td></tr>
+                    <tr><td><strong>S</strong></td><td>24 - 32 cm</td><td>36 - 48 cm</td><td>3.5 - 7 kg (Pug, Pomerania, Gatos)</td></tr>
+                    <tr><td><strong>M</strong></td><td>32 - 42 cm</td><td>48 - 62 cm</td><td>7 - 15 kg (French Bulldog, Beagle)</td></tr>
+                    <tr><td><strong>L</strong></td><td>42 - 56 cm</td><td>62 - 80 cm</td><td>15 - 30 kg (Golden, Lab, Dóberman)</td></tr>
+                    <tr><td><strong>XL</strong></td><td>56 - 70 cm</td><td>80 - 100 cm</td><td>30+ kg (Gran Danés, San Bernardo)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Club Puntos VIP Royale -->
+    <div class="modal-overlay" id="vip-rewards-modal">
+        <div class="modal-content" style="max-width: 600px; padding: 30px;">
+            <button class="btn-close-modal" id="btn-close-vip-modal">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="exit-badge">👑 CLUB ROYALE VIP</span>
+                <h3 style="font-size: 1.6rem; font-weight: 900; margin-top: 6px;">Tus Puntos Acumulados</h3>
+                <div class="vip-user-points-display" id="vip-modal-points">240 Pts</div>
+                <p style="color: var(--text-muted); font-size: 0.88rem;">Ganas 10 Puntos Royale por cada $1 gastado en compras.</p>
+            </div>
+            <div class="vip-tiers-grid" id="vip-tiers-container"></div>
+        </div>
+    </div>
+
+    <!-- Modal Quiz Interactivo Kit Ideal -->
+    <div class="modal-overlay" id="pet-quiz-modal">
+        <div class="modal-content quiz-modal-content">
+            <button class="btn-close-modal" id="btn-close-quiz-modal">✕</button>
+            <div class="quiz-header">
+                <span class="exit-badge">🎯 ASISTENTE INTERACTIVO</span>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-top: 5px;">Encuentra el Kit Ideal para tu Mascota</h3>
+            </div>
+            <div id="quiz-step-container"></div>
+        </div>
+    </div>
+
+    <!-- Modal Escribir Reseña (Add Review Modal) -->
+    <div class="modal-overlay" id="add-review-modal">
+        <div class="modal-content" style="max-width: 500px; padding: 30px;">
+            <button class="btn-close-modal" id="btn-close-review-modal">✕</button>
+            <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 15px;">✍️ Escribir Reseña VIP</h3>
+            <form id="review-form">
+                <div class="form-group">
+                    <label>Tu Nombre & Mascota:</label>
+                    <input type="text" id="review-author" class="coupon-input" placeholder="Ej: Elena & Milo 🐶" required style="width: 100%; margin-bottom: 12px;">
+                </div>
+                <div class="form-group">
+                    <label>Ciudad / País:</label>
+                    <input type="text" id="review-city" class="coupon-input" placeholder="Ej: Valencia, España" required style="width: 100%; margin-bottom: 12px;">
+                </div>
+                <div class="form-group">
+                    <label>Calificación:</label>
+                    <select id="review-stars-select" class="sort-select-pill" style="width: 100%; margin-bottom: 12px;">
+                        <option value="5">⭐⭐⭐⭐⭐ (5 Estrellas)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 Estrellas)</option>
+                        <option value="3">⭐⭐⭐ (3 Estrellas)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tu Opinión Imperial:</label>
+                    <textarea id="review-comment" placeholder="Cuéntanos la experiencia de tu mascota..." required style="width: 100%; height: 100px; padding: 10px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 15px; font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn-checkout">Publicar Reseña VIP</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Intención de Salida / Newsletter Popup (Exit-Intent Popup) -->
+    <div class="modal-overlay" id="exit-intent-modal">
+        <div class="modal-content exit-intent-content">
+            <button class="btn-close-modal" id="btn-close-exit-modal">✕</button>
+            <div class="exit-intent-body">
+                <span class="exit-badge">🎁 REGALO EXCLUSIVO VIP</span>
+                <h2>¡No te vayas con las manos vacías!</h2>
+                <p>Obtén un <strong>15% OFF EXTRA</strong> en tu primera compra usando el código exclusivo:</p>
+                <div class="exit-coupon-box">ROYALE15</div>
+                <button class="btn-checkout" id="btn-claim-exit-coupon">👑 APLICAR 15% OFF AHORA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cápsula Flotante de Carrito Rápido (Floating Cart FAB) -->
+    <div class="floating-cart-fab" id="floating-cart-fab" style="display: none;">
+        <span class="fab-icon">🛒</span>
+        <span class="fab-count-badge" id="fab-cart-count">0</span>
+        <span class="fab-total-price" id="fab-cart-total">$0.00</span>
+    </div>
+
+    <!-- BARRA DOCK NAVEGACIÓN INFERIOR MÓVIL ESTILO APP -->
+    <nav class="mobile-bottom-dock" id="mobile-bottom-dock">
+        <button class="dock-item active" id="dock-home">
+            <span class="dock-icon">🏠</span>
+            <span class="dock-label">Inicio</span>
+        </button>
+        <button class="dock-item" id="dock-search">
+            <span class="dock-icon">🔍</span>
+            <span class="dock-label">Buscar</span>
+        </button>
+        <button class="dock-item" id="dock-quiz">
+            <span class="dock-icon">🎯</span>
+            <span class="dock-label">Quiz</span>
+        </button>
+        <button class="dock-item" id="dock-wishlist">
+            <span class="dock-icon">❤️</span>
+            <span class="dock-label">Deseos</span>
+        </button>
+        <button class="dock-item" id="dock-cart">
+            <span class="dock-icon">🛒</span>
+            <span class="dock-label">Carrito</span>
+            <span class="dock-badge" id="dock-cart-badge">0</span>
+        </button>
+    </nav>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- SECCIÓN FEED INSTAGRAM / TIKTOK SHOPPABLE UGC GRID -->
+    <section class="shoppable-instagram-section" id="shoppable-instagram-section">
+        <div class="container">
+            <div class="reviews-header">
+                <span class="reviews-eyebrow">@LUXEPAWSPETS EN REDES</span>
+                <h2 class="reviews-title">Mascotas Imperiales en Instagram</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">Haz clic en cualquier foto para comprar el look oficial de la mascota.</p>
+            </div>
+            <div class="shoppable-instagram-grid" id="shoppable-instagram-grid"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ ACCORDIONS) -->
+    <section class="faq-section" id="faq-section">
+        <div class="container">
+            <div class="reviews-header">
+                <span class="reviews-eyebrow">DUDAS & RESPUESTAS</span>
+                <h2 class="reviews-title">Preguntas Frecuentes (FAQ)</h2>
+            </div>
+            <div class="faq-grid" id="faq-grid"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE RESEÑAS VIP DE CLIENTES REALES CON MASCOTAS -->
+    <section class="reviews-vip-section">
+        <div class="container">
+            <div class="reviews-header">
+                <span class="reviews-eyebrow">TESTIMONIOS IMPERIALES</span>
+                <h2 class="reviews-title">Mascotas Felices & Dueños Satisfechos</h2>
+
+                <!-- Desglose de Estrellas Shopify Style -->
+                <div class="rating-breakdown-bar">
+                    <div class="rating-overall">
+                        <span class="rating-num">4.9</span>
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <span class="total-reviews-count">1,840 Reseñas</span>
+                    </div>
+                    <button class="btn-reset-filters" id="btn-open-review-modal" style="margin-left: auto;">✍️ Escribir Reseña VIP</button>
+                </div>
+            </div>
+
+            <div class="reviews-grid" id="reviews-grid">
+                <div class="review-card">
+                    <div class="review-user-info">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Sofía" class="user-avatar">
+                        <div>
+                            <div class="user-name">Sofía & Luna 🐶</div>
+                            <div class="user-city">Madrid, España</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"El trono de terciopelo llegó al día siguiente. La calidad es digna de un palacio. Luna no quiere salir de su cama."</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-user-info">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Carlos" class="user-avatar">
+                        <div>
+                            <div class="user-name">Carlos & Oliver 🐱</div>
+                            <div class="user-city">Barcelona, España</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Los productos de Dudi Pets dejaron el pelaje de Oliver suave e híper brillante. 100% recomendado."</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-user-info">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="Valentina" class="user-avatar">
+                        <div>
+                            <div class="user-name">Valentina & Rocky 🐶</div>
+                            <div class="user-city">Ciudad de México</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"El empaque, la atención y la rapidez de envío superaron mis expectativas. Experiencia VIP total."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Elegante -->
+    <footer class="footer-glass">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo-title-group" style="text-decoration: none;">
+                    <span class="brand-name" style="font-size: 1.4rem;">LuxePaws</span>
+                    <span class="brand-sub">ROYALE PETS</span>
+                </a>
+                <p style="margin-top: 10px;">Cabecera cápsula flotante de ultra lujo con carrusel 3D de mascotas y catálogo Pinterest de 2 columnas.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Compra Segura</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Garantía VIP</a></li>
+                    <li><a href="#">Envíos Express</a></li>
+                    <li><a href="#">Devoluciones 30 Días</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Categorías Top</h4>
+                <ul class="footer-links">
+                    <li><a href="#">🐶 Perros VIP</a></li>
+                    <li><a href="#">🐱 Gatos Imperiales</a></li>
+                    <li><a href="#">🦜 Aves de Cuna</a></li>
+                    <li><a href="#">🐴 Élite Ecuestre</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Atención Concierge</h4>
+                <p>📩 soporte@luxepawsroyale.com</p>
+                <p>📞 +1 (800) LUXE-PAWS</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 LuxePaws Royale. Royal Pets Experience & Floating Glass Capsule Header.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

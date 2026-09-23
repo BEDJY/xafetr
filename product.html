@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto | LuxePaws Royale</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/theme.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Contenedor de Burbujas Flotantes Animadas en el Fondo -->
+    <div class="bubbles-bg-container">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+    </div>
+
+    <!-- HEADER: CABECERA CÁPSULA FLOTANTE DE LUXE -->
+    <header class="header-floating-capsule" id="main-header">
+        <div class="glass-navbar-capsule">
+            
+            <!-- SECCIÓN IZQUIERDA: Brand Logo + Pet Selector -->
+            <div class="nav-brand-section">
+                <a href="index.html" class="logo-badge">
+                    <img src="assets/logo/logo2_transparent.png" alt="LuxePaws Royale Logo" class="brand-logo-img">
+                </a>
+                <div class="logo-title-group">
+                    <span class="brand-name">LuxePaws</span>
+                    <span class="brand-sub">ROYALE PETS</span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DERECHA: Puntos VIP, Moneda, Buscador, Favoritos, Carrito, Tema -->
+            <div class="nav-actions-section">
+                <!-- Puntos Royale VIP Badge Pill -->
+                <button class="nav-action-pill points-pill" id="btn-open-vip-rewards" title="Club de Puntos VIP Royale">
+                    <span>👑</span> <span id="header-user-points">240</span> <span class="action-label">Pts</span>
+                </button>
+
+                <!-- Selector Multimoneda Global -->
+                <div class="currency-selector-dropdown">
+                    <select id="currency-select" class="currency-select-pill" title="Seleccionar Moneda">
+                        <option value="USD">🇺🇸 USD ($)</option>
+                        <option value="EUR">🇪🇺 EUR (€)</option>
+                        <option value="MXN">🇲🇽 MXN ($)</option>
+                        <option value="COP">🇨🇴 COP ($)</option>
+                    </select>
+                </div>
+
+                <!-- Botón de Búsqueda Flotante -->
+                <button class="nav-action-pill" id="btn-toggle-search" title="Buscar Productos">
+                    <span>🔍</span> <span class="action-label">Buscar</span>
+                </button>
+
+                <!-- Favoritos -->
+                <button class="nav-action-pill" id="wishlist-header-btn" title="Ver Favoritos">
+                    <span>❤️</span> <span class="action-label">Wishlist</span>
+                </button>
+
+                <!-- Carrito con Badge Flotante -->
+                <button class="nav-action-pill cart-pill" id="cart-btn" title="Ver Carrito">
+                    <span>🛒</span>
+                    <span class="cart-label-count" id="cart-badge">0</span>
+                </button>
+
+                <!-- Toggle Tema (Claro / Oscuro) -->
+                <button class="nav-action-pill theme-pill" id="theme-toggle-btn" title="Cambiar Tema">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- PANEL DE BÚSQUEDA OVERLAY -->
+        <div class="header-search-overlay" id="search-overlay">
+            <div class="search-overlay-container">
+                <div class="search-overlay-input-group">
+                    <span class="search-icon-lg">🔍</span>
+                    <input type="text" id="search-input" placeholder="Escribe para buscar collares, tronos, esmoquin, spa..." autocomplete="off">
+                    <button class="btn-close-search" id="btn-close-search">✕</button>
+                </div>
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS NAV -->
+    <div class="container" style="padding-top: 110px;">
+        <div class="breadcrumbs-nav">
+            <a href="index.html">🏠 Inicio</a>
+            <span>/</span>
+            <span id="pdp-category-breadcrumb">Categoría</span>
+            <span>/</span>
+            <strong id="pdp-title-breadcrumb" style="color: var(--gold-light);">Producto</strong>
+        </div>
+    </div>
+
+    <!-- MAIN PRODUCT DETAIL CONTAINER -->
+    <main class="container" style="padding-top: 20px; padding-bottom: 60px;">
+        <div class="pdp-standalone-grid">
+            <!-- COLUMNA IZQUIERDA: GALERÍA DE IMÁGENES -->
+            <div class="pdp-gallery-col">
+                <div class="pdp-main-image-frame">
+                    <img id="pdp-main-img" src="" alt="Producto PDP">
+                    <span class="badge-discount pdp-badge-discount" id="pdp-discount-badge">-70%</span>
+                    <!-- Vista Previa Grabado en Vivo sobre la Foto -->
+                    <div class="engraving-live-preview" id="pdp-engraving-preview"></div>
+                </div>
+                <!-- Miniaturas de la Galería -->
+                <div class="pdp-gallery-thumbs-row" id="pdp-gallery-thumbs"></div>
+            </div>
+
+            <!-- COLUMNA DERECHA: INFORMACIÓN Y ACCIONES -->
+            <div class="pdp-info-col">
+                <div class="modal-top-badges-row">
+                    <span class="points-earned-pill" id="pdp-earned-points">👑 +890 Pts Royale</span>
+                    <span class="badge-tag" id="pdp-badge-tag">⚡ TOP VENTAS</span>
+                </div>
+
+                <h1 class="pdp-product-title" id="pdp-product-title">Nombre del Producto</h1>
+
+                <div class="card-rating pdp-rating-row">
+                    <span id="pdp-rating-stars">⭐ 5.0</span>
+                    <span class="reviews-count" id="pdp-reviews-count">(1,420 reseñas de clientes)</span>
+                </div>
+
+                <!-- Ticker Urgencia de Despacho -->
+                <div class="dispatch-urgency-box">
+                    🚀 Ordena en las próximas <strong id="pdp-dispatch-timer">02h 14m 32s</strong> y despachamos <strong>HOY MISMO</strong>
+                </div>
+
+                <!-- Precios -->
+                <div class="pdp-price-box">
+                    <span class="modal-price-current pdp-current-price" id="pdp-price-current">$0.00</span>
+                    <span class="price-original pdp-original-price" id="pdp-price-original">$0.00</span>
+                </div>
+
+                <p class="pdp-description" id="pdp-description">Cargando descripción detallada...</p>
+
+                <!-- Selector de Colores Swatches -->
+                <div class="variant-section" id="pdp-color-section">
+                    <label class="variant-label">Color Selección: <strong id="pdp-selected-color">Selecciona</strong></label>
+                    <div class="color-swatches-row" id="pdp-color-swatches"></div>
+                </div>
+
+                <!-- Selector de Tallas Capsules -->
+                <div class="variant-section" id="pdp-size-section">
+                    <div class="variant-header-row">
+                        <label class="variant-label">Talla Mascota: <strong id="pdp-selected-size">Selecciona</strong></label>
+                        <button class="btn-size-guide-trigger" id="btn-open-size-guide-pdp">📐 Guía de Tallas</button>
+                    </div>
+                    <div class="size-capsules-row" id="pdp-size-capsules"></div>
+                </div>
+
+                <!-- Grabado / Bordado en Vivo -->
+                <div class="engraving-section-box">
+                    <label class="engraving-checkbox-label">
+                        <input type="checkbox" id="pdp-engraving-check"> ✨ Personalizar con Nombre / Teléfono (GRATIS)
+                    </label>
+                    <div class="engraving-inputs-row" id="pdp-engraving-inputs" style="display: none;">
+                        <input type="text" id="pdp-engraving-name" placeholder="Nombre de la Mascota (Ej: LUNA)" maxlength="16">
+                        <input type="text" id="pdp-engraving-phone" placeholder="Teléfono de contacto (Opcional)" maxlength="15">
+                    </div>
+                </div>
+
+                <!-- Control de Cantidad & Botón Agregar -->
+                <div class="pdp-action-row">
+                    <div class="pdp-qty-control">
+                        <button class="btn-qty" id="pdp-qty-minus">-</button>
+                        <span id="pdp-qty-val">1</span>
+                        <button class="btn-qty" id="pdp-qty-plus">+</button>
+                    </div>
+                    <button class="btn-checkout" id="pdp-add-to-cart-btn" style="margin-top: 0; flex: 1;">
+                        🛒 Añadir al Carrito VIP
+                    </button>
+                </div>
+
+                <!-- Pagos Express -->
+                <div class="express-checkout-buttons" style="margin-top: 15px;">
+                    <div class="express-pay-row">
+                        <button class="btn-express-pay btn-apple-pay" id="pdp-apple-pay">🍏 Pay</button>
+                        <button class="btn-express-pay btn-google-pay" id="pdp-google-pay">G Pay</button>
+                        <button class="btn-express-pay btn-paypal" id="pdp-paypal">PayPal</button>
+                    </div>
+                </div>
+
+                <!-- Acordiones Técnicos -->
+                <div class="modal-accordions-wrapper" style="margin-top: 25px;">
+                    <details class="modal-accordion-item" open>
+                        <summary>📦 Envío Express & Devoluciones Garantizadas</summary>
+                        <p id="pdp-acc-shipping">Envíos asegurados en 24-48h con empaque de regalo y devolución gratuita en 30 días.</p>
+                    </details>
+                    <details class="modal-accordion-item">
+                        <summary>🌿 Materiales & Especificaciones Técnicas</summary>
+                        <p id="pdp-acc-material">Insumos y textiles hipoalergénicos de alta resistencia.</p>
+                    </details>
+                    <details class="modal-accordion-item">
+                        <summary>🔒 Garantía de Satisfacción Imperial</summary>
+                        <p>Reemplazo directo sin preguntas en caso de defectos de fabricación.</p>
+                    </details>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SECCIÓN PRODUCTOS RELACIONADOS -->
+        <section style="margin-top: 80px;">
+            <div class="reviews-header" style="text-align: left; margin-bottom: 25px;">
+                <span class="reviews-eyebrow">RECOMENDACIONES IMPERIALES</span>
+                <h2 class="reviews-title">También te puede interesar</h2>
+            </div>
+            <div class="recently-viewed-grid" id="pdp-related-grid"></div>
+        </section>
+    </main>
+
+    <!-- Drawer de Carrito -->
+    <div class="cart-drawer-overlay" id="cart-drawer-overlay">
+        <div class="cart-drawer">
+            <div class="drawer-header">
+                <h3 class="drawer-title">🛒 Tu Carrito VIP</h3>
+                <button class="btn-close-drawer" id="btn-close-drawer">✕</button>
+            </div>
+            <div class="drawer-body" id="cart-items-container"></div>
+            <div class="empty-cart-view" id="empty-cart-view" style="display: none;">
+                <div class="empty-cart-icon">🛍️</div>
+                <p>Tu carrito de lujo está vacío.</p>
+            </div>
+            <div class="cart-upsells-wrapper">
+                <h4 class="cart-upsells-title">✨ Completa tu Pedido VIP</h4>
+                <div class="cart-upsells-row" id="cart-upsells-container"></div>
+            </div>
+            <div class="drawer-footer">
+                <div class="free-shipping-tracker">
+                    <div class="tracker-text" id="free-shipping-text">¡Agrega <strong>$50.00</strong> más para Envío Express GRATIS! 🚚</div>
+                    <div class="tracker-bar">
+                        <div class="tracker-progress" id="free-shipping-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="coupon-box">
+                    <input type="text" id="coupon-input" class="coupon-input" placeholder="Cupón (Ej: LUXE2026)">
+                    <button class="btn-apply-coupon" id="btn-apply-coupon">Aplicar</button>
+                </div>
+                <div class="summary-line"><span>Subtotal:</span><span id="cart-subtotal">$0.00</span></div>
+                <div class="summary-line"><span>Descuento Cupón:</span><span id="cart-discount" style="color: var(--cyan-neon);">$0.00</span></div>
+                <div class="summary-line total"><span>Total Estimado:</span><span id="cart-total">$0.00</span></div>
+                <button class="btn-checkout" id="btn-checkout">💳 FINALIZAR COMPRA VIP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Guía de Tallas -->
+    <div class="modal-overlay" id="size-guide-modal">
+        <div class="modal-content size-guide-content">
+            <button class="btn-close-modal" id="btn-close-size-guide">✕</button>
+            <h3 class="size-guide-title">📐 Guía de Tallas Imperial LuxePaws</h3>
+            <table class="size-table">
+                <thead>
+                    <tr><th>Talla</th><th>Cuello (cm)</th><th>Pecho (cm)</th><th>Peso Recomendado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>XS</strong></td><td>18 - 24 cm</td><td>28 - 36 cm</td><td>1 - 3.5 kg</td></tr>
+                    <tr><td><strong>S</strong></td><td>24 - 32 cm</td><td>36 - 48 cm</td><td>3.5 - 7 kg</td></tr>
+                    <tr><td><strong>M</strong></td><td>32 - 42 cm</td><td>48 - 62 cm</td><td>7 - 15 kg</td></tr>
+                    <tr><td><strong>L</strong></td><td>42 - 56 cm</td><td>62 - 80 cm</td><td>15 - 30 kg</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Club Puntos VIP -->
+    <div class="modal-overlay" id="vip-rewards-modal">
+        <div class="modal-content" style="max-width: 600px; padding: 30px;">
+            <button class="btn-close-modal" id="btn-close-vip-modal">✕</button>
+            <div style="text-align: center;">
+                <span class="exit-badge">👑 CLUB ROYALE VIP</span>
+                <div class="vip-user-points-display" id="vip-modal-points">240 Pts</div>
+            </div>
+            <div class="vip-tiers-grid" id="vip-tiers-container"></div>
+        </div>
+    </div>
+
+    <!-- BARRA DOCK NAVEGACIÓN INFERIOR MÓVIL ESTILO APP -->
+    <nav class="mobile-bottom-dock" id="mobile-bottom-dock">
+        <button class="dock-item" onclick="window.location.href='index.html'">
+            <span class="dock-icon">🏠</span>
+            <span class="dock-label">Inicio</span>
+        </button>
+        <button class="dock-item" id="dock-search">
+            <span class="dock-icon">🔍</span>
+            <span class="dock-label">Buscar</span>
+        </button>
+        <button class="dock-item" id="dock-wishlist">
+            <span class="dock-icon">❤️</span>
+            <span class="dock-label">Deseos</span>
+        </button>
+        <button class="dock-item" id="dock-cart">
+            <span class="dock-icon">🛒</span>
+            <span class="dock-label">Carrito</span>
+            <span class="dock-badge" id="dock-cart-badge">0</span>
+        </button>
+    </nav>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer Elegante -->
+    <footer class="footer-glass">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo-title-group" style="text-decoration: none;">
+                    <span class="brand-name" style="font-size: 1.4rem;">LuxePaws</span>
+                    <span class="brand-sub">ROYALE PETS</span>
+                </a>
+                <p style="margin-top: 10px;">Página dedicada de producto de ultra lujo estilo Shopify Plus.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Compra Segura</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Garantía VIP</a></li>
+                    <li><a href="#">Envíos Express</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atención Concierge</h4>
+                <p>📩 soporte@luxepawsroyale.com</p>
+                <p>📞 +1 (800) LUXE-PAWS</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 LuxePaws Royale. Royal Pets Experience.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html>

@@ -27,7 +27,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" type="text/css" media="all">
+  <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}" type="text/css" media="all">
   {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'styles.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
 
