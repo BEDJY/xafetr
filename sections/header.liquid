@@ -1,129 +1,76 @@
-<!-- DESKTOP TOP BAR -->
-<div class="desktop-top-bar">
-  <div class="desktop-top-content">
-    <div style="display: flex; gap: 16px; align-items: center;">
-      <span>{{ section.settings.top_bar_text }}</span>
-    </div>
-    <div style="display: flex; gap: 16px; align-items: center;">
-      <span>🎧 {{ section.settings.support_phone }}</span>
-      <span style="opacity: 0.3;">|</span>
-      {% if shop.customer_accounts_enabled %}
-        {% if customer %}
-          <a href="{{ routes.account_url }}" style="color: #38BDF8; font-weight: 700; text-decoration: none;">👤 Hola, {{ customer.first_name }}</a>
+<header class="header-floating-capsule" id="main-header">
+  <div class="glass-navbar-capsule">
+    <!-- Brand Logo -->
+    <div class="nav-brand-section">
+      <a href="{{ routes.root_url }}" class="logo-badge">
+        {% if settings.logo != blank %}
+          <img src="{{ settings.logo | image_url: width: 180 }}" alt="{{ shop.name }}" class="brand-logo-img">
         {% else %}
-          <a href="{{ routes.account_login_url }}" style="color: #38BDF8; font-weight: 700; text-decoration: none;">👤 Iniciar Sesión / Registro</a>
+          <img src="{{ 'logo2_transparent.png' | asset_url }}" alt="{{ shop.name }}" class="brand-logo-img">
         {% endif %}
-      {% endif %}
-    </div>
-  </div>
-</div>
-
-<!-- DESKTOP MAIN HEADER -->
-<header class="desktop-main-header">
-  <div class="desktop-header-content">
-    
-    <a href="{{ routes.root_url }}" class="brand-logo-link">
-      {% if section.settings.logo != blank %}
-        <img class="brand-logo-img" src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}">
-      {% else %}
-        <span style="font-size: 1.4rem; font-weight: 900; color: var(--primary);">{{ shop.name }}</span>
-      {% endif %}
-    </a>
-
-    <!-- BUSCADOR SHOPIFY -->
-    <form action="{{ routes.search_url }}" method="get" role="search" class="search-box-desktop">
-      <svg width="20" height="20" fill="none" stroke="#64748B" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      <input type="text" name="q" class="search-input-field" placeholder="Encuentra alimento, farmacia, accesorios..." aria-label="Buscar">
-      <button type="submit" class="btn-search-submit">Buscar</button>
-    </form>
-
-    <div class="header-right-actions">
-      <!-- CARRITO SHOPIFY AJAX -->
-      <div class="cart-widget-header" onclick="toggleCartDrawer()">
-        <div style="position: relative;">
-          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"></path></svg>
-          <span class="cart-badge-red cart-count-badge" style="position: absolute; top: -8px; right: -8px;">{{ cart.item_count }}</span>
-        </div>
-        <div>
-          <div style="font-size: 0.68rem; opacity: 0.8; font-weight: 700;">CARRITO</div>
-          <div class="cart-total-label" style="font-size: 0.88rem; font-weight: 900;">{{ cart.total_price | money }}</div>
-        </div>
+      </a>
+      <div class="logo-title-group">
+        <span class="brand-name">{{ shop.name }}</span>
+        <span class="brand-sub">ROYALE PETS</span>
       </div>
     </div>
 
-  </div>
-</header>
+    <!-- Actions Section -->
+    <div class="nav-actions-section">
+      <!-- Puntos VIP -->
+      <button class="nav-action-pill points-pill" id="btn-open-vip-rewards" title="Club de Puntos VIP Royale">
+        <span>👑</span> <span id="header-user-points">240</span> <span class="action-label">Pts</span>
+      </button>
 
-<!-- NAVEGACIÓN DE CATEGORÍAS -->
-<nav class="desktop-cat-nav">
-  <div class="desktop-cat-content">
-    {% for link in linklists[section.settings.menu].links %}
-      <a href="{{ link.url }}" class="cat-pill {% if link.active %}active{% endif %}">
-        <span>{{ link.title }}</span>
-      </a>
-    {% else %}
-      <a href="{{ routes.all_products_collection_url }}" class="cat-pill active">
-        <span>Todos los Productos</span>
-      </a>
-      <a href="/collections/farmacia" class="cat-pill pharma-pill">
-        <span>💊 Farmacia & Prescritos</span>
-      </a>
-      <a href="/collections/perros" class="cat-pill">
-        <span>Perros 🐶</span>
-      </a>
-      <a href="/collections/gatos" class="cat-pill">
-        <span>Gatos 🐱</span>
-      </a>
-    {% endfor %}
-  </div>
-</nav>
+      <!-- Selector Multimoneda Global -->
+      <div class="currency-selector-dropdown">
+        <select id="currency-select" class="currency-select-pill" title="Seleccionar Moneda">
+          <option value="USD">🇺🇸 USD ($)</option>
+          <option value="EUR">🇪🇺 EUR (€)</option>
+          <option value="MXN">🇲🇽 MXN ($)</option>
+          <option value="COP">🇨🇴 COP ($)</option>
+        </select>
+      </div>
 
-<!-- MOBILE APP BAR -->
-<header class="mobile-app-bar">
-  <div class="mobile-bar-inner">
-    <a href="{{ routes.root_url }}">
-      {% if section.settings.logo != blank %}
-        <img src="{{ section.settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" style="height: 38px;">
-      {% else %}
-        <span style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">{{ shop.name }}</span>
-      {% endif %}
-    </a>
-    <div style="display: flex; gap: 10px;">
-      <button style="background: none; border: none; color: var(--primary); font-size: 1.2rem;" onclick="toggleCartDrawer()">🛒</button>
+      <!-- Buscador -->
+      <button class="nav-action-pill" id="btn-toggle-search" title="Buscar Productos">
+        <span>🔍</span> <span class="action-label">Buscar</span>
+      </button>
+
+      <!-- Favoritos -->
+      <button class="nav-action-pill" id="wishlist-header-btn" title="Ver Favoritos">
+        <span>❤️</span> <span class="action-label">Wishlist</span>
+      </button>
+
+      <!-- Carrito -->
+      <button class="nav-action-pill cart-pill" id="cart-btn" title="Ver Carrito">
+        <span>🛒</span>
+        <span class="cart-label-count" id="cart-badge">{{ cart.item_count }}</span>
+      </button>
+
+      <!-- Toggle Tema -->
+      <button class="nav-action-pill theme-pill" id="theme-toggle-btn" title="Cambiar Tema">
+        <span id="theme-icon">🌙</span>
+      </button>
     </div>
   </div>
-  <form action="{{ routes.search_url }}" method="get" role="search" class="mobile-search-box">
-    <input type="text" name="q" placeholder="Buscar alimento, farmacia, accesorios...">
-  </form>
+
+  <!-- Search Overlay -->
+  <div class="header-search-overlay" id="search-overlay">
+    <div class="search-overlay-container">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-overlay-input-group">
+        <span class="search-icon-lg">🔍</span>
+        <input type="search" name="q" id="search-input" placeholder="Escribe para buscar collares, tronos, esmoquin, spa..." autocomplete="off">
+        <button type="button" class="btn-close-search" id="btn-close-search">✕</button>
+      </form>
+      <div class="search-suggestions" id="search-suggestions"></div>
+    </div>
+  </div>
 </header>
 
 {% schema %}
 {
-  "name": "Encabezado Principal",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo de la tienda"
-    },
-    {
-      "type": "text",
-      "id": "top_bar_text",
-      "label": "Texto barra superior",
-      "default": "🚚 Envíos express a todo el país"
-    },
-    {
-      "type": "text",
-      "id": "support_phone",
-      "label": "Teléfono de Soporte",
-      "default": "Soporte 24/7: 809-555-PETS"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menú de Categorías",
-      "default": "main-menu"
-    }
-  ]
+  "name": "Header Flotante VIP",
+  "settings": []
 }
 {% endschema %}

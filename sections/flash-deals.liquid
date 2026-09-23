@@ -1,0 +1,38 @@
+<section id="flash-deals-hero-section" class="flash-deals-hero-section">
+  <div class="container">
+    <div class="flash-deals-header">
+      <div class="flash-title-group">
+        <span class="flash-icon-pulse">⚡</span>
+        <div>
+          <h2 class="flash-section-title">OFERTAS RELÁMPAGO VIP</h2>
+          <p class="flash-section-sub">Descuentos exclusivos de hasta 40% OFF por tiempo limitado</p>
+        </div>
+      </div>
+
+      <div class="flash-timer-box">
+        <span class="timer-label">TERMINA EN:</span>
+        <div class="timer-digits">
+          <span class="timer-unit" id="timer-hours">04</span>:
+          <span class="timer-unit" id="timer-minutes">18</span>:
+          <span class="timer-unit" id="timer-seconds">42</span>
+        </div>
+      </div>
+
+      <div class="flash-nav-btns">
+        <button class="flash-nav-btn" id="flash-nav-prev" aria-label="Anterior">‹</button>
+        <button class="flash-nav-btn" id="flash-nav-next" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+
+    <div class="flash-deals-carousel" id="flash-deals-container">
+      {% comment %} Carga dinámica por JS o colección Liquid {% endcomment %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ofertas Relámpago VIP",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+<section class="categories-circles-section">
+  <div class="container">
+    <div class="category-circles-scroll-wrapper">
+      <div class="category-circle-item active" data-category="all">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'todos.png' | asset_url }}" alt="Todos">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">✨ Todos</span>
+      </div>
+
+      <div class="category-circle-item" data-category="dog">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'perros.png' | asset_url }}" alt="Perros">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">🐕 Perros</span>
+      </div>
+
+      <div class="category-circle-item" data-category="cat">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'gatos.png' | asset_url }}" alt="Gatos">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">🐈 Gatos</span>
+      </div>
+
+      <div class="category-circle-item" data-category="rodents">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'roedores.png' | asset_url }}" alt="Roedores">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">🐹 Roedores</span>
+      </div>
+
+      <div class="category-circle-item" data-category="aquarium">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'acuario.png' | asset_url }}" alt="Acuario">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">🐠 Acuario</span>
+      </div>
+
+      <div class="category-circle-item" data-category="spa">
+        <div class="circle-avatar-frame">
+          <img src="{{ 'petvet_icon_completo_1024.png' | asset_url }}" alt="Dudi Spa">
+          <div class="circle-ring"></div>
+        </div>
+        <span class="category-circle-label">🛁 Dudi Spa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categorías Circulares 3D",
+  "settings": []
+}
+{% endschema %}

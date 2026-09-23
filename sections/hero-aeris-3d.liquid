@@ -1,0 +1,134 @@
+<section id="aeris-experience" class="aeris-hero-section">
+  <div class="bg-image" style="background-image: url('{{ section.blocks.first.settings.image | image_url: width: 1400 }}');"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="aeris-hero-container">
+    <!-- Left Hero Info -->
+    <div class="aeris-hero-info">
+      <div class="hero-tag-pill">✨ COLECCIÓN IMPERIAL 2026</div>
+      <h1 class="hero-title" id="destination">
+        {{ section.blocks.first.settings.title | default: "PETSALUD MEDICAMENTOS & SALUD COMPLETA" }}
+      </h1>
+      <p class="hero-subtitle" id="country">PROMOCIÓN ROYALE</p>
+
+      <div class="hero-scarcity-box">
+        <div class="hero-scarcity-label">⚡ OFERTA LIMITADA TERMINA EN:</div>
+        <div class="hero-timer-digits">
+          <span class="hero-timer-num" id="hero-flash-hours">04</span>h :
+          <span class="hero-timer-num" id="hero-flash-minutes">18</span>m :
+          <span class="hero-timer-num" id="hero-flash-seconds">42</span>s
+        </div>
+      </div>
+
+      <div class="hero-cta-group">
+        <a href="#products-grid" class="btn-hero-primary">👑 Explorar Colección</a>
+        <button class="btn-hero-secondary" id="btn-open-pet-quiz">🐾 Test de Mascota</button>
+      </div>
+    </div>
+
+    <!-- 3D Carousel Cards -->
+    <div class="aeris-carousel-wrapper">
+      <div class="cards">
+        {% for block in section.blocks %}
+          {% assign idx_padded = forloop.index | prepend: '0' | slice: -2, 2 %}
+          <article
+            class="card {% if forloop.first %}active{% endif %}"
+            data-title="{{ block.settings.title | escape }}"
+            data-location="{{ block.settings.location | default: 'Promoción Royale' | escape }}"
+            data-number="{{ idx_padded }}"
+            data-image="{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 }}{% else %}{{ block.settings.image_asset | asset_url }}{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="card-media-frame">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}">
+              {% else %}
+                <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title }}">
+              {% endif %}
+              <div class="card-glow"></div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <!-- Controls -->
+      <div class="aeris-nav-controls">
+        <button class="arrow-prev" aria-label="Anterior">←</button>
+        <div class="aeris-counter">
+          <span id="current">01</span> / <span id="total">{{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
+        </div>
+        <button class="arrow-next" aria-label="Siguiente">→</button>
+      </div>
+
+      <div class="aeris-progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrusel Hero 3D AERIS",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner Promocional",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título del Banner",
+          "default": "PetSalud Medicamentos & Salud Completa"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Subtítulo / Etiqueta",
+          "default": "Promoción Royale"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen del Banner"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Nombre de archivo local en assets (fallback)",
+          "default": "banner3.jpg"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrusel Hero 3D AERIS",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "title": "PetSalud Medicamentos & Salud Completa",
+            "image_asset": "banner3.jpg"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Dudi Pets Spa VIP",
+            "image_asset": "banner1.png"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Cobaii Puntos & Beneficios",
+            "image_asset": "banner2.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

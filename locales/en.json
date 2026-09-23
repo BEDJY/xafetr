@@ -1,0 +1,15 @@
+{
+  "general": {
+    "search": "Search",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "points": "Pts",
+    "free_shipping": "FREE Express Shipping",
+    "add_to_cart": "Add to Cart",
+    "checkout": "Checkout",
+    "reviews": "VIP customer reviews",
+    "flash_sale": "Flash Sale",
+    "recently_viewed": "Recently Viewed",
+    "shoppable_looks": "Shop Look"
+  }
+}

@@ -1,32 +1,64 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Cobaii Petvet Theme",
-    "theme_version": "1.0.0",
-    "theme_author": "Antigravity Studio",
-    "theme_documentation_url": "https://help.shopify.com",
-    "theme_support_url": "https://support.shopify.com"
+    "theme_name": "LuxePaws Royale",
+    "theme_author": "Deepmind Antigravity",
+    "theme_version": "2.0.0",
+    "theme_documentation_url": "https://shopify.com",
+    "theme_support_url": "https://shopify.com"
   },
   {
-    "name": "Colores del Tema",
+    "name": "Colores & Estilo VIP",
     "settings": [
       {
         "type": "color",
-        "id": "color_primary",
-        "label": "Color Primario",
-        "default": "#123B5D"
+        "id": "color_primary_gold",
+        "label": "Color Dorado Principal",
+        "default": "#d4af37"
       },
       {
         "type": "color",
-        "id": "color_accent",
-        "label": "Color de Acento (Naranja)",
-        "default": "#FF5000"
+        "id": "color_bg_light",
+        "label": "Fondo Claro",
+        "default": "#f4f4f9"
       },
       {
         "type": "color",
-        "id": "color_cyan",
-        "label": "Color secundario (Cian)",
-        "default": "#007BA7"
+        "id": "color_bg_dark",
+        "label": "Fondo Oscuro",
+        "default": "#0b0d14"
+      }
+    ]
+  },
+  {
+    "name": "Logotipo & Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Principal Transparente"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon del Sitio"
+      }
+    ]
+  },
+  {
+    "name": "Barra de Envío Gratis & Puntos VIP",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Monto para Envío Gratis ($)",
+        "default": 50
+      },
+      {
+        "type": "number",
+        "id": "vip_points_rate",
+        "label": "Puntos ganados por cada $1",
+        "default": 10
       }
     ]
   }

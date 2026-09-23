@@ -1,14 +1,9 @@
 {
   "current": {
-    "color_primary": "#123B5D",
-    "color_accent": "#FF5000",
-    "color_cyan": "#007BA7"
-  },
-  "presets": {
-    "Default": {
-      "color_primary": "#123B5D",
-      "color_accent": "#FF5000",
-      "color_cyan": "#007BA7"
-    }
+    "color_primary_gold": "#d4af37",
+    "color_bg_light": "#f4f4f9",
+    "color_bg_dark": "#0b0d14",
+    "free_shipping_threshold": 50,
+    "vip_points_rate": 10
   }
 }

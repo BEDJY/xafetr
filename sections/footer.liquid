@@ -1,74 +1,66 @@
-<footer class="main-footer" style="background: var(--primary-dark); color: white; padding: 40px 24px 20px 24px; margin-top: auto;">
-  <div style="max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 30px;">
-    
-    <div>
-      <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; color: #38BDF8;">{{ shop.name }}</h4>
-      <p style="font-size: 0.83rem; opacity: 0.8; line-height: 1.6;">{{ section.settings.about_text }}</p>
+<footer class="footer-vip-container">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <div class="footer-logo-group">
+          <img src="{{ 'logo2_transparent.png' | asset_url }}" alt="{{ shop.name }}" class="footer-logo">
+          <h3>{{ shop.name }} Royale</h3>
+        </div>
+        <p class="footer-desc">Accesorios e indumentaria de ultra-lujo para mascotas imperiales.</p>
+        <div class="footer-social-links">
+          <a href="#" class="social-badge">📷 Instagram</a>
+          <a href="#" class="social-badge">🎵 TikTok</a>
+          <a href="#" class="social-badge">💬 WhatsApp VIP</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Colecciones VIP</h4>
+        <ul class="footer-menu">
+          <li><a href="{{ routes.collections_url }}">Perros Reales</a></li>
+          <li><a href="{{ routes.collections_url }}">Gatos Imperiales</a></li>
+          <li><a href="{{ routes.collections_url }}">Aves & Exóticos</a></li>
+          <li><a href="{{ routes.collections_url }}">Dudi Pets Spa</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Atención al Cliente</h4>
+        <ul class="footer-menu">
+          <li><a href="#">Rastreo de Pedidos</a></li>
+          <li><a href="#">Guía de Tallas Imperial</a></li>
+          <li><a href="#">Club de Puntos VIP</a></li>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col newsletter-col">
+        <h4 class="footer-heading">Únete al Club Royale</h4>
+        <p class="newsletter-desc">Recibe un 15% OFF en tu primera compra y invitaciones privadas a lanzamientos.</p>
+        {% form 'customer', class: 'footer-newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="Tu correo electrónico..." required autocomplete="email">
+          <button type="submit" class="btn-checkout" style="margin-top: 8px;">👑 Suscribirme</button>
+        {% endform %}
+      </div>
     </div>
 
-    <div>
-      <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; color: white;">Enlaces Rápidos</h4>
-      <ul style="list-style: none; padding: 0; font-size: 0.85rem; line-height: 2;">
-        {% for link in linklists[section.settings.footer_menu].links %}
-          <li><a href="{{ link.url }}" style="color: #CBD5E1; text-decoration: none;">{{ link.title }}</a></li>
-        {% else %}
-          <li><a href="{{ routes.all_products_collection_url }}" style="color: #CBD5E1; text-decoration: none;">Ver Productos</a></li>
-          <li><a href="{{ routes.search_url }}" style="color: #CBD5E1; text-decoration: none;">Buscar</a></li>
-        {% endfor %}
-      </ul>
+    <div class="footer-bottom-bar">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados. Plantilla Shopify 2.0 Ultra-VIP.</p>
+      <div class="payment-badges">
+        <span> Pay</span>
+        <span>G Pay</span>
+        <span>PayPal</span>
+        <span>Visa</span>
+        <span>Mastercard</span>
+      </div>
     </div>
-
-    <div>
-      <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; color: white;">Atención al Cliente</h4>
-      <p style="font-size: 0.85rem; color: #CBD5E1; line-height: 1.8;">
-        📞 {{ section.settings.phone }}<br>
-        ✉️ {{ section.settings.email }}<br>
-        📍 {{ section.settings.address }}
-      </p>
-    </div>
-
-  </div>
-
-  <div style="max-width: 1320px; margin: 20px auto 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.78rem; opacity: 0.7; gap: 10px;">
-    <div>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. Todos los derechos reservados.</div>
-    <div>💳 Tarjetas de Crédito, Débito, Transferencia &amp; Efectivo</div>
   </div>
 </footer>
 
 {% schema %}
 {
-  "name": "Pie de Página (Footer)",
-  "settings": [
-    {
-      "type": "textarea",
-      "id": "about_text",
-      "label": "Descripción sobre la tienda",
-      "default": "Tu tienda de mascotas online de confianza. Alimentos premium, farmacia veterinaria y envíos express."
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu",
-      "label": "Menú del Footer",
-      "default": "footer"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Teléfono",
-      "default": "809-555-PETS"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Correo de contacto",
-      "default": "contacto@cobaiipetvet.com"
-    },
-    {
-      "type": "text",
-      "id": "address",
-      "label": "Dirección",
-      "default": "Santo Domingo, República Dominicana"
-    }
-  ]
+  "name": "Footer VIP",
+  "settings": []
 }
 {% endschema %}

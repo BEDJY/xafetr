@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}">
+<html lang="{{ request.locale.iso_code }}" data-theme="light">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#d4af37">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
   <title>
     {{ page_title }}
-    {%- if current_tags %} &ndash; etiquetado como "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; Página {{ current_page }}{% endif -%}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
   </title>
 
@@ -14,42 +22,53 @@
     <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
 
-  <!-- Google Fonts (Montserrat) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Shopify Styles & Head Content -->
-  {{ 'styles.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
   {{ content_for_header }}
+
+  <script>
+    window.ShopifyTheme = {
+      routes: {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}'
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
 </head>
-<body class="template-{{ template | replace: '.', '-' | handle }}">
+<body class="template-{{ template.name }}">
 
-  <!-- Canvas Animado de Fondo -->
-  <canvas id="petBackgroundCanvas"></canvas>
-
-  <div class="app-viewport">
-
-    <!-- Sección Barra de Anuncios -->
-    {% section 'announcement-bar' %}
-
-    <!-- Sección Header Principal -->
-    {% section 'header' %}
-
-    <!-- Contenido Principal -->
-    <main class="main-container" id="MainContent" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
-
-    <!-- Sección Pie de Página -->
-    {% section 'footer' %}
-
-    <!-- Snippet de Carrito Deslizable -->
-    {% render 'cart-drawer' %}
-
+  <!-- Animación de Fondo con Burbujas -->
+  <div class="bubbles-bg-container">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
+    <div class="bubble bubble-7"></div>
   </div>
 
-  <!-- Scripts del Tema -->
-  {{ 'app.js' | asset_url | script_tag }}
+  {% section 'header' %}
+
+  <main id="MainContent" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  {% render 'cart-drawer' %}
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  {{ 'theme.js' | asset_url | script_tag }}
 </body>
 </html>

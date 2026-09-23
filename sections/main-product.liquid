@@ -1,0 +1,131 @@
+<div class="container" style="padding-top: 110px;">
+  <!-- Breadcrumbs Nav -->
+  <div class="breadcrumbs-nav">
+    <a href="{{ routes.root_url }}">🏠 Inicio</a>
+    <span>/</span>
+    <span id="pdp-category-breadcrumb">Categoría</span>
+    <span>/</span>
+    <span id="pdp-title-breadcrumb">{{ product.title | default: "Detalles del Producto" }}</span>
+  </div>
+
+  <!-- Main PDP Grid Layout -->
+  <div class="pdp-standalone-grid">
+    <!-- Media Column -->
+    <div class="pdp-media-col">
+      <div class="pdp-main-image-frame">
+        <img id="pdp-main-img" src="{{ product.featured_image | default: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1000&q=80' }}" alt="{{ product.title }}">
+        <span class="badge-discount pdp-badge-discount" id="pdp-discount-badge">-25%</span>
+        <span class="points-earned-pill" id="pdp-earned-points" style="position: absolute; top: 15px; right: 15px;">👑 +1290 Pts Royale</span>
+
+        <!-- Grabado de Nombre Overlay -->
+        <div id="engraving-live-preview" class="engraving-live-preview">TU MASCOTA</div>
+      </div>
+
+      <!-- Miniaturas Galería -->
+      <div class="modal-gallery-thumbs pdp-gallery-thumbs-row" id="pdp-gallery-thumbs"></div>
+    </div>
+
+    <!-- Info Column -->
+    <div class="pdp-info-col">
+      <span class="badge-tag" id="pdp-badge-tag" style="align-self: flex-start;">👑 EDICIÓN IMPERIAL</span>
+      <h1 class="pdp-product-title" id="pdp-product-title">{{ product.title | default: "Cama Trono Imperial Velvet Gold" }}</h1>
+
+      <div class="pdp-rating-row">
+        <span id="pdp-rating-stars">⭐ 4.9</span>
+        <span id="pdp-reviews-count" style="color: var(--text-muted); font-size: 0.85rem;">(128 reseñas de clientes VIP)</span>
+      </div>
+
+      <div class="pdp-price-box">
+        <span class="pdp-current-price" id="pdp-price-current">$129.00</span>
+        <span class="pdp-original-price" id="pdp-price-original">$169.00</span>
+      </div>
+
+      <p class="pdp-description" id="pdp-description">
+        {{ product.description | default: "Diseñada para realeza canina y felina. Fabricada con terciopelo hidrófugo de alta densidad y estructura reforzada en acabados dorados." }}
+      </p>
+
+      <!-- Variantes: Color Swatches -->
+      <div class="variant-section">
+        <div class="variant-header-row">
+          <span class="variant-label">Color: <strong id="pdp-selected-color-name">Oro Imperial</strong></span>
+        </div>
+        <div class="color-swatches-row" id="pdp-color-swatches"></div>
+      </div>
+
+      <!-- Variantes: Size Capsules -->
+      <div class="variant-section">
+        <div class="variant-header-row">
+          <span class="variant-label">Talla: <strong id="pdp-selected-size-name">Mediano (M)</strong></span>
+          <button class="btn-size-guide-trigger" id="btn-open-size-guide-pdp">📏 Guía de Tallas</button>
+        </div>
+        <div class="size-capsules-row" id="pdp-size-capsules"></div>
+      </div>
+
+      <!-- Personalización de Grabado / Bordado -->
+      <div class="engraving-option-card" style="margin-top: 15px;">
+        <label class="engraving-checkbox-label">
+          <input type="checkbox" id="pdp-engraving-check">
+          <span>✨ Personalizar con Nombre Grabado (+ Gratis)</span>
+        </label>
+        <div class="engraving-inputs-container" id="pdp-engraving-container" style="display: none; margin-top: 10px;">
+          <input type="text" id="pdp-engraving-name-input" placeholder="Nombre de tu mascota (Ej: MAX)" maxlength="12" class="engraving-input">
+        </div>
+      </div>
+
+      <!-- Urgencia de Despacho Ticker -->
+      <div style="margin: 20px 0; background: rgba(212, 175, 55, 0.08); padding: 12px 16px; border-radius: 16px; border: 1px dashed var(--gold); display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🚀</span>
+        <div style="font-size: 0.84rem;">
+          Comprando en las próximas <strong id="dispatch-timer" style="color: var(--gold-light);">02h 14m 32s</strong> lo despachamos <strong>HOY MISMO</strong>.
+        </div>
+      </div>
+
+      <!-- Action Row -->
+      <div class="pdp-action-row">
+        <div class="pdp-qty-control">
+          <button id="pdp-qty-minus">-</button>
+          <span id="pdp-qty-val">1</span>
+          <button id="pdp-qty-plus">+</button>
+        </div>
+        <button class="btn-checkout" id="pdp-add-cart-btn" style="flex: 1; padding: 16px;">
+          🛒 Añadir al Carrito
+        </button>
+      </div>
+
+      <!-- Express Pay Buttons -->
+      <div style="margin-top: 20px;">
+        <div style="text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">— O PAGA EN 1-CLIC CON PAGO EXPRESS —</div>
+        <div class="express-pay-buttons">
+          <button class="express-btn btn-apple-pay" id="pdp-apple-pay">Pay</button>
+          <button class="express-btn btn-google-pay" id="pdp-google-pay">G Pay</button>
+          <button class="express-btn btn-paypal" id="pdp-paypal">PayPal</button>
+        </div>
+      </div>
+
+      <!-- Specs Accordions -->
+      <div class="modal-accordions-wrapper">
+        <details class="modal-accordion-item" open>
+          <summary>💎 Materiales & Cuidados</summary>
+          <p id="pdp-acc-materials">Terciopelo real lavable a máquina, relleno ortopédico de viscoelástica y detalles cosidos a mano.</p>
+        </details>
+        <details class="modal-accordion-item">
+          <summary>🚚 Envío Express & Garantía Imperial</summary>
+          <p id="pdp-acc-shipping">Envío prioritario con seguro incluido. 30 días de garantía total de satisfacción o cambio de talla sin costo.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <section class="recently-viewed-section" style="margin-top: 50px;">
+    <h2 class="section-title">✨ También Te Puede Interesar</h2>
+    <div class="recently-viewed-grid" id="pdp-related-grid"></div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Ficha de Producto Standalone",
+  "settings": []
+}
+{% endschema %}

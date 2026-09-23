@@ -1,0 +1,15 @@
+{
+  "general": {
+    "search": "Buscar",
+    "cart": "Carrito",
+    "wishlist": "Wishlist",
+    "points": "Pts",
+    "free_shipping": "Envío Express GRATIS",
+    "add_to_cart": "Añadir al Carrito",
+    "checkout": "Comprar Ahora",
+    "reviews": "reseñas de clientes VIP",
+    "flash_sale": "Oferta Relámpago",
+    "recently_viewed": "Vistos Recientemente",
+    "shoppable_looks": "Comprar Look"
+  }
+}
