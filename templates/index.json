@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {}
+    },
+    "brand_carousel": {
+      "type": "brand-carousel",
+      "settings": {}
+    },
+    "nutri_quiz_banner": {
+      "type": "nutri-quiz-banner",
+      "settings": {}
+    },
+    "cobaii_plus": {
+      "type": "cobaii-plus",
+      "settings": {}
+    },
+    "main_collection": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "customer_reviews": {
+      "type": "customer-reviews",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_banner",
+    "brand_carousel",
+    "nutri_quiz_banner",
+    "cobaii_plus",
+    "main_collection",
+    "customer_reviews"
+  ]
+}
