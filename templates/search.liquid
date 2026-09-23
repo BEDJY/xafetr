@@ -1,0 +1,17 @@
+<div class="search-page-container" style="max-width: 1320px; margin: 40px auto; padding: 0 24px;">
+  <h1 style="font-size: 1.8rem; font-weight: 900; color: var(--primary); margin-bottom: 24px;">Resultados de Búsqueda para "{{ search.terms | escape }}"</h1>
+
+  {% if search.performed %}
+    <div class="products-grid">
+      {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+          {% render 'product-card', product: item %}
+        {% endif %}
+      {% else %}
+        <p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px 0;">No se encontraron productos coincidentes con tu búsqueda.</p>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="text-align: center; color: var(--text-muted); padding: 40px 0;">Ingresa una palabra clave en la barra superior para buscar productos.</p>
+  {% endif %}
+</div>
