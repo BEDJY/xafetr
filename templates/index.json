@@ -1,36 +1,30 @@
 {
   "sections": {
-    "hero_banner": {
-      "type": "hero-banner",
-      "settings": {}
+    "hero_3d": {
+      "type": "hero-aeris-3d"
     },
-    "brand_carousel": {
-      "type": "brand-carousel",
-      "settings": {}
+    "recently_viewed": {
+      "type": "recently-viewed"
     },
-    "nutri_quiz_banner": {
-      "type": "nutri-quiz-banner",
-      "settings": {}
+    "flash_deals": {
+      "type": "flash-deals"
     },
-    "cobaii_plus": {
-      "type": "cobaii-plus",
-      "settings": {}
+    "category_circles": {
+      "type": "category-circles"
     },
     "main_collection": {
-      "type": "main-collection",
-      "settings": {}
+      "type": "main-collection"
     },
-    "customer_reviews": {
-      "type": "customer-reviews",
-      "settings": {}
+    "shoppable_instagram": {
+      "type": "shoppable-instagram"
     }
   },
   "order": [
-    "hero_banner",
-    "brand_carousel",
-    "nutri_quiz_banner",
-    "cobaii_plus",
+    "hero_3d",
+    "recently_viewed",
+    "flash_deals",
+    "category_circles",
     "main_collection",
-    "customer_reviews"
+    "shoppable_instagram"
   ]
 }

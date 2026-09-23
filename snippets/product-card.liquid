@@ -1,50 +1,51 @@
-<div class="product-card" data-product-id="{{ product.id }}">
-  <div class="product-image-container">
-    {% if product.featured_image %}
-      <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title | escape }}" loading="lazy" class="product-img">
-    {% else %}
-      <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500&auto=format&fit=crop" alt="Producto sin imagen" class="product-img">
-    {% endif %}
+{% comment %}
+  Renders a product card snippet in Shopify
+{% endcomment %}
 
-    {% if product.compare_at_price > product.price %}
-      {% assign save_price = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
-      <span class="badge-discount">-{{ save_price }}%</span>
-    {% elsif product.tags contains 'prescrito' %}
-      <span class="badge-discount" style="background:#10B981;">💊 PRESCRIPCIÓN</span>
-    {% endif %}
-
-    <button class="wishlist-btn-card" title="Agregar a Favoritos" onclick="toggleWishlist('{{ product.id }}', '{{ product.title | escape }}')">❤️</button>
-  </div>
-
-  <div class="product-card-body">
-    <div class="product-brand-tag">{{ product.vendor | default: 'Cobaii Petvet' }}</div>
-    <a href="{{ product.url }}" class="product-title-link" style="text-decoration: none; color: inherit;">
-      <h3 class="product-title">{{ product.title }}</h3>
+<div class="product-card" data-id="{{ product.id }}">
+  <div class="card-img-wrapper {{ product.aspect_ratio | default: 'aspect-tall' }}">
+    <a href="{{ product.url }}">
+      <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" class="img-main" loading="lazy">
+      {% if product.images[1] != blank %}
+        <img src="{{ product.images[1] | image_url: width: 600 }}" alt="{{ product.title }}" class="img-secondary" loading="lazy">
+      {% endif %}
     </a>
 
-    <div class="product-rating">
-      <span class="stars">★★★★★</span>
-      <span class="reviews-count">(5.0)</span>
+    {% if product.variants.size > 0 %}
+      <div class="quick-size-bar">
+        {% for variant in product.variants limit: 4 %}
+          <button class="quick-size-pill" data-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-size="{{ variant.title }}">{{ variant.title }}</button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="card-body">
+    <div class="card-header-row">
+      <div class="card-badges">
+        {% if product.compare_at_price > product.price %}
+          {% assign save = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+          <span class="badge-discount">-{{ save }}%</span>
+        {% endif %}
+        <span class="badge-tag">👑 ROYALE</span>
+      </div>
+      <button class="btn-wishlist" data-id="{{ product.id }}">🤍</button>
     </div>
 
-    <div class="product-price-row">
+    <div class="card-rating">
+      <span>★ 4.9</span>
+      <span class="reviews-count">(84)</span>
+    </div>
+
+    <h3 class="card-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+
+    <div class="card-footer">
       <div>
-        <span class="current-price">{{ product.price | money }}</span>
+        <span class="price-current">{{ product.price | money }}</span>
         {% if product.compare_at_price > product.price %}
-          <span class="old-price">{{ product.compare_at_price | money }}</span>
+          <span class="price-original">{{ product.compare_at_price | money }}</span>
         {% endif %}
       </div>
     </div>
-
-    <form method="post" action="/cart/add" class="shopify-product-form" data-product-form>
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-      <button type="submit" class="btn-add-cart-card" {% unless product.available %}disabled{% endunless %}>
-        {% if product.available %}
-          🛒 Añadir al Carrito
-        {% else %}
-          Agotado
-        {% endif %}
-      </button>
-    </form>
   </div>
 </div>

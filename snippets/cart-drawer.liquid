@@ -1,44 +1,92 @@
-<!-- SHOPIFY CART DRAWER -->
-<div id="cartDrawer" class="cart-drawer-overlay" onclick="if(event.target === this) toggleCartDrawer()">
-  <div class="cart-drawer-content">
+<div class="cart-drawer-overlay" id="cart-drawer-overlay">
+  <div class="cart-drawer">
     <div class="cart-drawer-header">
-      <h3 style="font-weight: 800; font-size: 1.1rem; color: var(--primary);">🛒 Mi Carrito (<span class="cart-count-badge">{{ cart.item_count }}</span>)</h3>
-      <button onclick="toggleCartDrawer()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      <div class="cart-drawer-title">
+        <span>🛒 Tu Carrito VIP</span>
+        <span class="cart-badge-pill" id="dock-cart-badge">{{ cart.item_count }}</span>
+      </div>
+      <button class="btn-close-drawer" id="btn-close-drawer">✕</button>
     </div>
 
-    <div id="cartDrawerItems" class="cart-drawer-body" style="padding: 16px; flex: 1; overflow-y: auto;">
-      {% if cart.item_count > 0 %}
-        {% for item in cart.items %}
-          <div class="cart-item-row" style="display: flex; gap: 12px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); align-items: center;">
-            <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title | escape }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
-            <div style="flex: 1;">
-              <h4 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; color: var(--primary);">{{ item.product.title }}</h4>
-              <div style="font-size: 0.8rem; color: var(--text-muted);">{{ item.variant.title }}</div>
-              <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange); margin-top: 4px;">{{ item.final_line_price | money }}</div>
+    <!-- Free Shipping Progress Meter -->
+    <div class="free-shipping-progress-wrapper">
+      <div class="free-shipping-text-box" id="free-shipping-text">
+        ¡Agrega <strong>$50.00</strong> más para Envío Express GRATIS! 🚚
+      </div>
+      <div class="free-shipping-progress-bar">
+        <div class="free-shipping-progress-fill" id="free-shipping-progress" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Empty View -->
+    <div class="empty-cart-view" id="empty-cart-view" {% if cart.item_count > 0 %}style="display: none;"{% endif %}>
+      <div class="empty-cart-icon">👑🛍️</div>
+      <h3>Tu Carrito está Vacío</h3>
+      <p>Explora nuestras colecciones exclusivas para mimar a tu mascota como se merece.</p>
+    </div>
+
+    <!-- Cart Items Container -->
+    <div class="cart-items-container" id="cart-items-container">
+      {% for item in cart.items %}
+        <div class="cart-item">
+          <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title }}" class="cart-item-img">
+          <div class="cart-item-details">
+            <div class="cart-item-title">{{ item.product.title }}</div>
+            <small style="color: var(--text-muted); font-size: 0.72rem;">{{ item.variant.title }}</small>
+            <div class="cart-item-price">{{ item.final_line_price | money }}</div>
+            <div class="cart-qty-controls">
+              <button class="btn-qty btn-minus" data-cart-id="{{ item.key }}">-</button>
+              <span>{{ item.quantity }}</span>
+              <button class="btn-qty btn-plus" data-cart-id="{{ item.key }}">+</button>
+              <button class="btn-remove-item" data-cart-id="{{ item.key }}">🗑️</button>
             </div>
-            <a href="/cart/change?line={{ forloop.index }}&quantity=0" style="color: var(--accent-red); text-decoration: none; font-size: 1.2rem;" title="Eliminar">&times;</a>
           </div>
-        {% endfor %}
-      {% else %}
-        <div style="text-align: center; padding: 40px 16px; color: var(--text-muted);">
-          <div style="font-size: 3rem; margin-bottom: 12px;">🛒</div>
-          <p style="font-weight: 700;">Tu carrito está vacío</p>
-          <p style="font-size: 0.82rem; margin-top: 6px;">Explora nuestros productos y agrega lo que tu mascota necesita.</p>
         </div>
-      {% endif %}
+      {% endfor %}
     </div>
 
-    <div class="cart-drawer-footer" style="padding: 20px; border-top: 1px solid var(--border-color); background: #F8FAFC;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <span style="font-weight: 700; color: var(--text-muted);">Subtotal:</span>
-        <span class="cart-total-label" style="font-weight: 900; font-size: 1.15rem; color: var(--primary);">{{ cart.total_price | money }}</span>
+    <!-- Upsells -->
+    <div class="cart-upsells-wrapper">
+      <div class="cart-upsells-title">✨ Complementos Recomendados</div>
+      <div class="cart-upsells-row" id="cart-upsells-container"></div>
+    </div>
+
+    <!-- Gift Wrap Checkbox -->
+    <div style="padding: 12px 20px; border-top: 1px dashed rgba(0,0,0,0.1);">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; cursor: pointer;">
+        <input type="checkbox" id="cart-gift-wrap-check">
+        <span>🎁 Empaque para Regalo Imperial (+ $4.99)</span>
+      </label>
+    </div>
+
+    <!-- Coupon Input -->
+    <div class="coupon-box">
+      <input type="text" id="coupon-input" placeholder="Código de Cupón VIP (Ej: LUXE2026)" autocomplete="off">
+      <button class="btn-apply-coupon" id="btn-apply-coupon">Aplicar</button>
+    </div>
+
+    <!-- Footer Summary & Checkout -->
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-row">
+        <span>Subtotal:</span>
+        <strong id="cart-subtotal">{{ cart.total_price | money }}</strong>
+      </div>
+      <div class="cart-summary-row">
+        <span>Descuento:</span>
+        <strong id="cart-discount" style="color: #2e7d32;">$0.00</strong>
+      </div>
+      <div class="cart-summary-row total-row">
+        <span>Total a Pagar:</span>
+        <strong id="cart-total">{{ cart.total_price | money }}</strong>
       </div>
 
-      <form action="{{ routes.cart_url }}" method="post">
-        <button type="submit" name="checkout" class="btn-checkout-full" style="width: 100%; background: var(--accent-orange); color: white; border: none; padding: 14px; border-radius: var(--radius-md); font-weight: 800; font-size: 1rem; cursor: pointer;">
-          🔒 Procesar Pago / Checkout
-        </button>
-      </form>
+      <button class="btn-checkout" id="btn-checkout">💳 Procesar Pago Seguro VIP</button>
+
+      <div class="express-pay-buttons">
+        <button class="express-btn btn-apple-pay" id="btn-apple-pay">Pay</button>
+        <button class="express-btn btn-google-pay" id="btn-google-pay">G Pay</button>
+        <button class="express-btn btn-paypal" id="btn-paypal">PayPal</button>
+      </div>
     </div>
   </div>
 </div>
