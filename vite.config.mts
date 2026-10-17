@@ -5,28 +5,21 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
-    const defaultCloudRunUrl = 'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app';
-    const apiUrl = env.VENDURE_API_URL || env.VENDURE_API_HOST || env.VITE_VENDURE_API_URL || defaultCloudRunUrl;
-    
+    const apiUrl = env.VENDURE_API_URL || env.VENDURE_API_HOST || 'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app';
     let url: URL;
     try {
         url = new URL(apiUrl);
     } catch {
-        url = new URL(defaultCloudRunUrl);
+        url = new URL('https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app');
     }
 
     const host = `${url.protocol}//${url.hostname}`;
     const port = url.port ? Number(url.port) : (url.protocol === 'https:' ? 443 : 80);
-    const googleClientId = env.GOOGLE_CLIENT_ID || env.VITE_GOOGLE_CLIENT_ID || '770503141267-0i58clh12je20u31gfq2aalo8hmg7dg6.apps.googleusercontent.com';
 
     return {
         base: '/',
         build: {
             outDir: join(__dirname, 'dist'),
-        },
-        define: {
-            'process.env.GOOGLE_CLIENT_ID': JSON.stringify(googleClientId),
-            'process.env.VITE_GOOGLE_CLIENT_ID': JSON.stringify(googleClientId),
         },
         plugins: [
             {
@@ -65,6 +58,17 @@ export default defineConfig(({ mode }) => {
                 '@/routes': resolve(__dirname, './src/routes'),
                 '@/config': resolve(__dirname, './src/config'),
             },
+        },
+        define: {
+            'import.meta.env.VITE_GOOGLE_CLIENT_ID': JSON.stringify(
+                env.GOOGLE_CLIENT_ID || env.VITE_GOOGLE_CLIENT_ID || '770503141267-0i58clh12je20u31gfq2aalo8hmg7dg6.apps.googleusercontent.com'
+            ),
+            'process.env.GOOGLE_CLIENT_ID': JSON.stringify(
+                env.GOOGLE_CLIENT_ID || env.VITE_GOOGLE_CLIENT_ID || '770503141267-0i58clh12je20u31gfq2aalo8hmg7dg6.apps.googleusercontent.com'
+            ),
+            'process.env.VITE_GOOGLE_CLIENT_ID': JSON.stringify(
+                env.GOOGLE_CLIENT_ID || env.VITE_GOOGLE_CLIENT_ID || '770503141267-0i58clh12je20u31gfq2aalo8hmg7dg6.apps.googleusercontent.com'
+            ),
         },
     };
 });
