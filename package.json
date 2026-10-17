@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-native": "*",
-    "@expo/vector-icons": "*"
-  }
-}
