@@ -1,0 +1,24 @@
+{
+  "name": "admin-panel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/scripts/sync-customizations.js && vite",
+    "build": "node src/scripts/sync-customizations.js && vite build",
+    "preview": "vite preview",
+    "sync": "node src/scripts/sync-customizations.js",
+    "postinstall": "node src/scripts/sync-customizations.js"
+  },
+  "dependencies": {
+    "@vendure/core": "3.8.0",
+    "@vendure/dashboard": "3.8.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@vendure/cli": "3.8.0",
+    "typescript": "5.8.2",
+    "vite": "^7.3.1"
+  }
+}
