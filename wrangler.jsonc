@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dobeha",
+  "name": "xafetr",
   "compatibility_date": "2026-10-12",
   "assets": {
     "directory": "./dist",
