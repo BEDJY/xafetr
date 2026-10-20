@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fav-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="fav-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="fav-right" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <filter id="fav-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop -->
+  <rect width="100" height="100" rx="24" fill="#09090b" />
+
+  <!-- Outer Isometric Facets -->
+  <polygon points="50,12 86,32 50,53 14,32" fill="url(#fav-top)" />
+  <polygon points="50,53 86,32 86,74 50,94" fill="url(#fav-right)" />
+  <polygon points="14,32 50,53 50,94 14,74" fill="url(#fav-left)" />
+
+  <!-- Inner Core -->
+  <polygon points="50,30 70,41 50,52 30,41" fill="#09090b" opacity="0.85" />
+  <polygon points="50,52 70,41 70,66 50,77" fill="#09090b" opacity="0.95" />
+  <polygon points="30,41 50,52 50,77 30,66" fill="#09090b" opacity="0.9" />
+
+  <!-- Quantum Core Node -->
+  <circle cx="50" cy="54" r="5" fill="#38BDF8" filter="url(#fav-glow)" />
+  <circle cx="50" cy="54" r="2.5" fill="#FFFFFF" />
+</svg>
