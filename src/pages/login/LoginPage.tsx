@@ -80,7 +80,7 @@ export default function LoginPage() {
       let friendly = 'Error al iniciar sesión. Verifica tus credenciales.';
 
       if (rawMsg.includes('Failed to fetch') || rawMsg.includes('NetworkError') || rawMsg.includes('ECONNREFUSED')) {
-        friendly = 'No se pudo conectar con el servidor backend (http://localhost:3000). Asegúrate de que el backend esté activo.';
+        friendly = 'No se pudo conectar con el servidor de Dobeha Cloud. Verifica tu conexión a internet.';
       } else if (rawMsg.includes('INVALID_CREDENTIALS') || rawMsg.toLowerCase().includes('credentials are invalid') || rawMsg.toLowerCase().includes('credenciales')) {
         friendly = 'El correo electrónico o la contraseña ingresados son incorrectos. Por favor verifica tus credenciales o utiliza el botón de autocompletar.';
       } else if (rawMsg) {

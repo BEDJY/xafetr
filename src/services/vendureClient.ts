@@ -2,7 +2,29 @@
  * Cliente HTTP GraphQL para interactuar con la Admin API de Vendure Core
  */
 
-const API_URL = import.meta.env.VITE_VENDURE_API_URL || 'http://localhost:3000/admin-api';
+const ONLINE_API_URL =
+  'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app/admin-api';
+
+function resolveVendureApiUrl(): string {
+  const isPublishedWeb =
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1';
+
+  const envUrl = import.meta.env.VITE_VENDURE_API_URL || '';
+
+  // Prohibido estrictamente que la web publicada o build de producción se conecte a localhost/offline
+  if (isPublishedWeb || import.meta.env.PROD) {
+    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+      return envUrl;
+    }
+    return ONLINE_API_URL;
+  }
+
+  return envUrl || ONLINE_API_URL;
+}
+
+const API_URL = resolveVendureApiUrl();
 
 export interface GraphQLResponse<T = any> {
   data?: T;

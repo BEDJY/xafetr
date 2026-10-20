@@ -159,7 +159,7 @@ export default function CreateStorePage() {
       const fErrors: Record<string, string> = {};
 
       if (rawMsg.includes('Failed to fetch') || rawMsg.includes('NetworkError') || rawMsg.includes('ECONNREFUSED')) {
-        userFriendlyMsg = 'No se pudo conectar con el servidor backend (http://localhost:3000). Por favor verifica que el backend de Vendure esté en ejecución.';
+        userFriendlyMsg = 'No se pudo conectar con el servidor de Dobeha Cloud. Por favor verifica tu conexión a internet.';
       } else if (rawMsg.toLowerCase().includes('correo') || rawMsg.toLowerCase().includes('email') || rawMsg.includes('already exists')) {
         fErrors.emailAddress = 'Este correo electrónico ya está registrado en Dokkany.';
         userFriendlyMsg = `El correo "${emailAddress}" ya pertenece a una cuenta registrada. Puedes iniciar sesión o utilizar otro correo diferente.`;
