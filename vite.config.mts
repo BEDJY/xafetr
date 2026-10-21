@@ -5,12 +5,18 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
-    const apiUrl = env.VENDURE_API_URL || env.VENDURE_API_HOST || 'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app';
+    const isProd = mode === 'production';
+    const defaultUrl = isProd
+        ? 'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app'
+        : 'http://localhost:3000';
+    const apiUrl = isProd
+        ? defaultUrl
+        : (env.VENDURE_API_URL || env.VENDURE_API_HOST || defaultUrl);
     let url: URL;
     try {
         url = new URL(apiUrl);
     } catch {
-        url = new URL('https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app');
+        url = new URL(defaultUrl);
     }
 
     const host = `${url.protocol}//${url.hostname}`;

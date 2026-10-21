@@ -2,26 +2,29 @@
  * Cliente HTTP GraphQL para interactuar con la Admin API de Vendure Core
  */
 
-const ONLINE_API_URL =
+const ONLINE_CLOUD_RUN_API_URL =
   'https://xxxxxx-dobeha-core-google-clound-xxxxxx-git-770503141267.us-east1.run.app/admin-api';
 
+/**
+ * Separación estricta de conexión API según dónde se ejecute el Admin Panel:
+ * - EN LA NUBE (cualquier dominio publicado): Se conecta ÚNICA Y EXCLUSIVAMENTE a Google Cloud Run.
+ * - EN LOCAL (localhost / 127.0.0.1): Se conecta ÚNICA Y EXCLUSIVAMENTE al backend local (puerto 3000).
+ */
 function resolveVendureApiUrl(): string {
-  const isPublishedWeb =
-    typeof window !== 'undefined' &&
-    window.location.hostname !== 'localhost' &&
-    window.location.hostname !== '127.0.0.1';
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const isLocalHost = host === 'localhost' || host === '127.0.0.1';
 
-  const envUrl = import.meta.env.VITE_VENDURE_API_URL || '';
-
-  // Prohibido estrictamente que la web publicada o build de producción se conecte a localhost/offline
-  if (isPublishedWeb || import.meta.env.PROD) {
-    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
-      return envUrl;
+    if (isLocalHost) {
+      // En entorno local: exclusivamente backend local (nunca Google Cloud)
+      return `http://${host}:3000/admin-api`;
     }
-    return ONLINE_API_URL;
+
+    // En la nube: única y exclusivamente Google Cloud Run (nunca localhost)
+    return ONLINE_CLOUD_RUN_API_URL;
   }
 
-  return envUrl || ONLINE_API_URL;
+  return import.meta.env.PROD ? ONLINE_CLOUD_RUN_API_URL : 'http://localhost:3000/admin-api';
 }
 
 const API_URL = resolveVendureApiUrl();
